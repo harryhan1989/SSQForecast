@@ -1,0 +1,131 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="ssqdbModel.Store" Alias="Self" Provider="System.Data.SQLite" ProviderManifestToken="ISO8601" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityContainer Name="ssqdbModelStoreContainer">
+          <EntitySet Name="TotalTermInfos" EntityType="ssqdbModel.Store.TotalTermInfos" store:Type="Tables" />
+        </EntityContainer>
+        <EntityType Name="TotalTermInfos">
+          <Key>
+            <PropertyRef Name="TermNum" />
+          </Key>
+          <Property Name="TermNum" Type="integer" Nullable="false" />
+          <Property Name="TermDate" Type="datetime" Nullable="false" />
+          <Property Name="RedNum1" Type="int" Nullable="false" />
+          <Property Name="RedNum2" Type="int" Nullable="false" />
+          <Property Name="RedNum3" Type="int" Nullable="false" />
+          <Property Name="RedNum4" Type="int" Nullable="false" />
+          <Property Name="RedNum5" Type="int" Nullable="false" />
+          <Property Name="RedNum6" Type="int" Nullable="false" />
+          <Property Name="BlueNum" Type="int" Nullable="false" />
+          <Property Name="TotalPaid" Type="decimal" Nullable="false" Precision="53" />
+          <Property Name="PrizePool" Type="decimal" Nullable="false" Precision="53" />
+          <Property Name="FirstPrizeNum" Type="int" Nullable="false" />
+          <Property Name="AmountPerFirstPrize" Type="decimal" Nullable="false" Precision="53" />
+          <Property Name="SecondPrizeNum" Type="int" Nullable="false" />
+          <Property Name="AmountPerSecondPrize" Type="decimal" Nullable="false" Precision="53" />
+          <Property Name="ThirdPrizeNum" Type="int" Nullable="false" />
+          <Property Name="AmountPerThirdPrize" Type="decimal" Nullable="false" Precision="53" />
+          <Property Name="FourthPrizeNun" Type="int" Nullable="false" />
+          <Property Name="AmountPerFourthPrize" Type="decimal" Nullable="false" Precision="53" />
+          <Property Name="FifthPrizeNum" Type="int" Nullable="false" />
+          <Property Name="AmountPerFifthPrize" Type="decimal" Nullable="false" Precision="53" />
+          <Property Name="SixthPrizeNum" Type="int" Nullable="false" />
+          <Property Name="AmountPerSixthPrize" Type="decimal" Nullable="false" Precision="53" />
+        </EntityType>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="ssqdbModel" Alias="Self" p1:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:p1="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="ssqdbEntities" p1:LazyLoadingEnabled="true">
+          <EntitySet Name="TotalTermInfos" EntityType="ssqdbModel.TotalTermInfo" />
+        </EntityContainer>
+        <EntityType Name="TotalTermInfo">
+          <Key>
+            <PropertyRef Name="TermNum" />
+          </Key>
+          <Property Type="Int64" Name="TermNum" Nullable="false" />
+          <Property Type="DateTime" Name="TermDate" Nullable="false" />
+          <Property Type="Int32" Name="RedNum1" Nullable="false" />
+          <Property Type="Int32" Name="RedNum2" Nullable="false" />
+          <Property Type="Int32" Name="RedNum3" Nullable="false" />
+          <Property Type="Int32" Name="RedNum4" Nullable="false" />
+          <Property Type="Int32" Name="RedNum5" Nullable="false" />
+          <Property Type="Int32" Name="RedNum6" Nullable="false" />
+          <Property Type="Int32" Name="BlueNum" Nullable="false" />
+          <Property Type="Decimal" Name="TotalPaid" Nullable="false" Precision="53" Scale="0" />
+          <Property Type="Decimal" Name="PrizePool" Nullable="false" Precision="53" Scale="0" />
+          <Property Type="Int32" Name="FirstPrizeNum" Nullable="false" />
+          <Property Type="Decimal" Name="AmountPerFirstPrize" Nullable="false" Precision="53" Scale="0" />
+          <Property Type="Int32" Name="SecondPrizeNum" Nullable="false" />
+          <Property Type="Decimal" Name="AmountPerSecondPrize" Nullable="false" Precision="53" Scale="0" />
+          <Property Type="Int32" Name="ThirdPrizeNum" Nullable="false" />
+          <Property Type="Decimal" Name="AmountPerThirdPrize" Nullable="false" Precision="53" Scale="0" />
+          <Property Type="Int32" Name="FourthPrizeNun" Nullable="false" />
+          <Property Type="Decimal" Name="AmountPerFourthPrize" Nullable="false" Precision="53" Scale="0" />
+          <Property Type="Int32" Name="FifthPrizeNum" Nullable="false" />
+          <Property Type="Decimal" Name="AmountPerFifthPrize" Nullable="false" Precision="53" Scale="0" />
+          <Property Type="Int32" Name="SixthPrizeNum" Nullable="false" />
+          <Property Type="Decimal" Name="AmountPerSixthPrize" Nullable="false" Precision="53" Scale="0" />
+        </EntityType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="ssqdbModelStoreContainer" CdmEntityContainer="ssqdbEntities">
+          <EntitySetMapping Name="TotalTermInfos">
+            <EntityTypeMapping TypeName="ssqdbModel.TotalTermInfo">
+              <MappingFragment StoreEntitySet="TotalTermInfos">
+                <ScalarProperty Name="AmountPerSixthPrize" ColumnName="AmountPerSixthPrize" />
+                <ScalarProperty Name="SixthPrizeNum" ColumnName="SixthPrizeNum" />
+                <ScalarProperty Name="AmountPerFifthPrize" ColumnName="AmountPerFifthPrize" />
+                <ScalarProperty Name="FifthPrizeNum" ColumnName="FifthPrizeNum" />
+                <ScalarProperty Name="AmountPerFourthPrize" ColumnName="AmountPerFourthPrize" />
+                <ScalarProperty Name="FourthPrizeNun" ColumnName="FourthPrizeNun" />
+                <ScalarProperty Name="AmountPerThirdPrize" ColumnName="AmountPerThirdPrize" />
+                <ScalarProperty Name="ThirdPrizeNum" ColumnName="ThirdPrizeNum" />
+                <ScalarProperty Name="AmountPerSecondPrize" ColumnName="AmountPerSecondPrize" />
+                <ScalarProperty Name="SecondPrizeNum" ColumnName="SecondPrizeNum" />
+                <ScalarProperty Name="AmountPerFirstPrize" ColumnName="AmountPerFirstPrize" />
+                <ScalarProperty Name="FirstPrizeNum" ColumnName="FirstPrizeNum" />
+                <ScalarProperty Name="PrizePool" ColumnName="PrizePool" />
+                <ScalarProperty Name="TotalPaid" ColumnName="TotalPaid" />
+                <ScalarProperty Name="BlueNum" ColumnName="BlueNum" />
+                <ScalarProperty Name="RedNum6" ColumnName="RedNum6" />
+                <ScalarProperty Name="RedNum5" ColumnName="RedNum5" />
+                <ScalarProperty Name="RedNum4" ColumnName="RedNum4" />
+                <ScalarProperty Name="RedNum3" ColumnName="RedNum3" />
+                <ScalarProperty Name="RedNum2" ColumnName="RedNum2" />
+                <ScalarProperty Name="RedNum1" ColumnName="RedNum1" />
+                <ScalarProperty Name="TermDate" ColumnName="TermDate" />
+                <ScalarProperty Name="TermNum" ColumnName="TermNum" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="True" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="True" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
