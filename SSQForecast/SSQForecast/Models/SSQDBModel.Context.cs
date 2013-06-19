@@ -26,5 +26,6 @@ namespace SSQForecast.Models
         }
     
         public DbSet<TotalTermInfo> TotalTermInfos { get; set; }
+        public DbSet<NumberMapping> NumberMappings { get; set; }
     }
 }

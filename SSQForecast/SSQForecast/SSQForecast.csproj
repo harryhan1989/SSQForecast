@@ -85,6 +85,9 @@
     <Compile Include="MainForm.Designer.cs">
       <DependentUpon>MainForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="Models\NumberMapping.cs">
+      <DependentUpon>SSQDBModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\SSQDBModel.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>

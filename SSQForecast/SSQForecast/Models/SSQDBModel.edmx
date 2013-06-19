@@ -6,8 +6,63 @@
     <edmx:StorageModels>
     <Schema Namespace="ssqdbModel.Store" Alias="Self" Provider="System.Data.SQLite" ProviderManifestToken="ISO8601" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityContainer Name="ssqdbModelStoreContainer">
+          <EntitySet Name="NumberMapping" EntityType="ssqdbModel.Store.NumberMapping" store:Type="Tables" />
           <EntitySet Name="TotalTermInfos" EntityType="ssqdbModel.Store.TotalTermInfos" store:Type="Tables" />
         </EntityContainer>
+        <EntityType Name="NumberMapping">
+          <Key>
+            <PropertyRef Name="TermNum" />
+          </Key>
+          <Property Name="TermNum" Type="integer" Nullable="false" />
+          <Property Name="RedNum1" Type="bit" />
+          <Property Name="RedNum2" Type="bit" />
+          <Property Name="RedNum3" Type="bit" />
+          <Property Name="RedNum4" Type="bit" />
+          <Property Name="RedNum5" Type="bit" />
+          <Property Name="RedNum6" Type="bit" />
+          <Property Name="RedNum7" Type="bit" />
+          <Property Name="RedNum8" Type="bit" />
+          <Property Name="RedNum9" Type="bit" />
+          <Property Name="RedNum10" Type="bit" />
+          <Property Name="RedNum11" Type="bit" />
+          <Property Name="RedNum12" Type="bit" />
+          <Property Name="RedNum13" Type="bit" />
+          <Property Name="RedNum14" Type="bit" />
+          <Property Name="RedNum15" Type="bit" />
+          <Property Name="RedNum16" Type="bit" />
+          <Property Name="RedNum17" Type="bit" />
+          <Property Name="RedNum18" Type="bit" />
+          <Property Name="RedNum19" Type="bit" />
+          <Property Name="RedNum20" Type="bit" />
+          <Property Name="RedNum21" Type="bit" />
+          <Property Name="RedNum22" Type="bit" />
+          <Property Name="RedNum23" Type="bit" />
+          <Property Name="RedNum24" Type="bit" />
+          <Property Name="RedNum25" Type="bit" />
+          <Property Name="RedNum26" Type="bit" />
+          <Property Name="RedNum27" Type="bit" />
+          <Property Name="RedNum28" Type="bit" />
+          <Property Name="RedNum29" Type="bit" />
+          <Property Name="RedNum30" Type="bit" />
+          <Property Name="RedNum31" Type="bit" />
+          <Property Name="RedNum32" Type="bit" />
+          <Property Name="BlueNum1" Type="bit" />
+          <Property Name="BlueNum2" Type="bit" />
+          <Property Name="BlueNum3" Type="bit" />
+          <Property Name="BlueNum4" Type="bit" />
+          <Property Name="BlueNum5" Type="bit" />
+          <Property Name="BlueNum6" Type="bit" />
+          <Property Name="BlueNum7" Type="bit" />
+          <Property Name="BlueNum8" Type="bit" />
+          <Property Name="BlueNum9" Type="bit" />
+          <Property Name="BlueNum10" Type="bit" />
+          <Property Name="BlueNum11" Type="bit" />
+          <Property Name="BlueNum12" Type="bit" />
+          <Property Name="BlueNum13" Type="bit" />
+          <Property Name="BlueNum14" Type="bit" />
+          <Property Name="BlueNum15" Type="bit" />
+          <Property Name="BlueNum16" Type="bit" />
+        </EntityType>
         <EntityType Name="TotalTermInfos">
           <Key>
             <PropertyRef Name="TermNum" />
@@ -42,6 +97,7 @@
       <Schema Namespace="ssqdbModel" Alias="Self" p1:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:p1="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
         <EntityContainer Name="ssqdbEntities" p1:LazyLoadingEnabled="true">
           <EntitySet Name="TotalTermInfos" EntityType="ssqdbModel.TotalTermInfo" />
+          <EntitySet Name="NumberMappings" EntityType="ssqdbModel.NumberMapping" />
         </EntityContainer>
         <EntityType Name="TotalTermInfo">
           <Key>
@@ -70,6 +126,60 @@
           <Property Type="Decimal" Name="AmountPerFifthPrize" Nullable="false" Precision="53" Scale="0" />
           <Property Type="Int32" Name="SixthPrizeNum" Nullable="false" />
           <Property Type="Decimal" Name="AmountPerSixthPrize" Nullable="false" Precision="53" Scale="0" />
+        </EntityType>
+        <EntityType Name="NumberMapping">
+          <Key>
+            <PropertyRef Name="TermNum" />
+          </Key>
+          <Property Type="Int64" Name="TermNum" Nullable="false" />
+          <Property Type="Boolean" Name="RedNum1" />
+          <Property Type="Boolean" Name="RedNum2" />
+          <Property Type="Boolean" Name="RedNum3" />
+          <Property Type="Boolean" Name="RedNum4" />
+          <Property Type="Boolean" Name="RedNum5" />
+          <Property Type="Boolean" Name="RedNum6" />
+          <Property Type="Boolean" Name="RedNum7" />
+          <Property Type="Boolean" Name="RedNum8" />
+          <Property Type="Boolean" Name="RedNum9" />
+          <Property Type="Boolean" Name="RedNum10" />
+          <Property Type="Boolean" Name="RedNum11" />
+          <Property Type="Boolean" Name="RedNum12" />
+          <Property Type="Boolean" Name="RedNum13" />
+          <Property Type="Boolean" Name="RedNum14" />
+          <Property Type="Boolean" Name="RedNum15" />
+          <Property Type="Boolean" Name="RedNum16" />
+          <Property Type="Boolean" Name="RedNum17" />
+          <Property Type="Boolean" Name="RedNum18" />
+          <Property Type="Boolean" Name="RedNum19" />
+          <Property Type="Boolean" Name="RedNum20" />
+          <Property Type="Boolean" Name="RedNum21" />
+          <Property Type="Boolean" Name="RedNum22" />
+          <Property Type="Boolean" Name="RedNum23" />
+          <Property Type="Boolean" Name="RedNum24" />
+          <Property Type="Boolean" Name="RedNum25" />
+          <Property Type="Boolean" Name="RedNum26" />
+          <Property Type="Boolean" Name="RedNum27" />
+          <Property Type="Boolean" Name="RedNum28" />
+          <Property Type="Boolean" Name="RedNum29" />
+          <Property Type="Boolean" Name="RedNum30" />
+          <Property Type="Boolean" Name="RedNum31" />
+          <Property Type="Boolean" Name="RedNum32" />
+          <Property Type="Boolean" Name="BlueNum1" />
+          <Property Type="Boolean" Name="BlueNum2" />
+          <Property Type="Boolean" Name="BlueNum3" />
+          <Property Type="Boolean" Name="BlueNum4" />
+          <Property Type="Boolean" Name="BlueNum5" />
+          <Property Type="Boolean" Name="BlueNum6" />
+          <Property Type="Boolean" Name="BlueNum7" />
+          <Property Type="Boolean" Name="BlueNum8" />
+          <Property Type="Boolean" Name="BlueNum9" />
+          <Property Type="Boolean" Name="BlueNum10" />
+          <Property Type="Boolean" Name="BlueNum11" />
+          <Property Type="Boolean" Name="BlueNum12" />
+          <Property Type="Boolean" Name="BlueNum13" />
+          <Property Type="Boolean" Name="BlueNum14" />
+          <Property Type="Boolean" Name="BlueNum15" />
+          <Property Type="Boolean" Name="BlueNum16" />
         </EntityType>
       </Schema>
     </edmx:ConceptualModels>
@@ -102,6 +212,61 @@
                 <ScalarProperty Name="RedNum2" ColumnName="RedNum2" />
                 <ScalarProperty Name="RedNum1" ColumnName="RedNum1" />
                 <ScalarProperty Name="TermDate" ColumnName="TermDate" />
+                <ScalarProperty Name="TermNum" ColumnName="TermNum" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="NumberMappings">
+            <EntityTypeMapping TypeName="ssqdbModel.NumberMapping">
+              <MappingFragment StoreEntitySet="NumberMapping">
+                <ScalarProperty Name="BlueNum16" ColumnName="BlueNum16" />
+                <ScalarProperty Name="BlueNum15" ColumnName="BlueNum15" />
+                <ScalarProperty Name="BlueNum14" ColumnName="BlueNum14" />
+                <ScalarProperty Name="BlueNum13" ColumnName="BlueNum13" />
+                <ScalarProperty Name="BlueNum12" ColumnName="BlueNum12" />
+                <ScalarProperty Name="BlueNum11" ColumnName="BlueNum11" />
+                <ScalarProperty Name="BlueNum10" ColumnName="BlueNum10" />
+                <ScalarProperty Name="BlueNum9" ColumnName="BlueNum9" />
+                <ScalarProperty Name="BlueNum8" ColumnName="BlueNum8" />
+                <ScalarProperty Name="BlueNum7" ColumnName="BlueNum7" />
+                <ScalarProperty Name="BlueNum6" ColumnName="BlueNum6" />
+                <ScalarProperty Name="BlueNum5" ColumnName="BlueNum5" />
+                <ScalarProperty Name="BlueNum4" ColumnName="BlueNum4" />
+                <ScalarProperty Name="BlueNum3" ColumnName="BlueNum3" />
+                <ScalarProperty Name="BlueNum2" ColumnName="BlueNum2" />
+                <ScalarProperty Name="BlueNum1" ColumnName="BlueNum1" />
+                <ScalarProperty Name="RedNum32" ColumnName="RedNum32" />
+                <ScalarProperty Name="RedNum31" ColumnName="RedNum31" />
+                <ScalarProperty Name="RedNum30" ColumnName="RedNum30" />
+                <ScalarProperty Name="RedNum29" ColumnName="RedNum29" />
+                <ScalarProperty Name="RedNum28" ColumnName="RedNum28" />
+                <ScalarProperty Name="RedNum27" ColumnName="RedNum27" />
+                <ScalarProperty Name="RedNum26" ColumnName="RedNum26" />
+                <ScalarProperty Name="RedNum25" ColumnName="RedNum25" />
+                <ScalarProperty Name="RedNum24" ColumnName="RedNum24" />
+                <ScalarProperty Name="RedNum23" ColumnName="RedNum23" />
+                <ScalarProperty Name="RedNum22" ColumnName="RedNum22" />
+                <ScalarProperty Name="RedNum21" ColumnName="RedNum21" />
+                <ScalarProperty Name="RedNum20" ColumnName="RedNum20" />
+                <ScalarProperty Name="RedNum19" ColumnName="RedNum19" />
+                <ScalarProperty Name="RedNum18" ColumnName="RedNum18" />
+                <ScalarProperty Name="RedNum17" ColumnName="RedNum17" />
+                <ScalarProperty Name="RedNum16" ColumnName="RedNum16" />
+                <ScalarProperty Name="RedNum15" ColumnName="RedNum15" />
+                <ScalarProperty Name="RedNum14" ColumnName="RedNum14" />
+                <ScalarProperty Name="RedNum13" ColumnName="RedNum13" />
+                <ScalarProperty Name="RedNum12" ColumnName="RedNum12" />
+                <ScalarProperty Name="RedNum11" ColumnName="RedNum11" />
+                <ScalarProperty Name="RedNum10" ColumnName="RedNum10" />
+                <ScalarProperty Name="RedNum9" ColumnName="RedNum9" />
+                <ScalarProperty Name="RedNum8" ColumnName="RedNum8" />
+                <ScalarProperty Name="RedNum7" ColumnName="RedNum7" />
+                <ScalarProperty Name="RedNum6" ColumnName="RedNum6" />
+                <ScalarProperty Name="RedNum5" ColumnName="RedNum5" />
+                <ScalarProperty Name="RedNum4" ColumnName="RedNum4" />
+                <ScalarProperty Name="RedNum3" ColumnName="RedNum3" />
+                <ScalarProperty Name="RedNum2" ColumnName="RedNum2" />
+                <ScalarProperty Name="RedNum1" ColumnName="RedNum1" />
                 <ScalarProperty Name="TermNum" ColumnName="TermNum" />
               </MappingFragment>
             </EntityTypeMapping>

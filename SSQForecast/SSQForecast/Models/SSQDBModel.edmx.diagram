@@ -5,7 +5,8 @@
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
       <Diagram DiagramId="656bb9f5591d4164a3b50cd335812b2a" Name="Diagram1" ZoomLevel="98">
-        <EntityTypeShape EntityType="ssqdbModel.TotalTermInfo" Width="2.25" PointX="1.875" PointY="0.875" />
+        <EntityTypeShape EntityType="ssqdbModel.TotalTermInfo" Width="2.25" PointX="1.875" PointY="0.875" IsExpanded="false" />
+        <EntityTypeShape EntityType="ssqdbModel.NumberMapping" Width="1.5" PointX="4.5" PointY="0.875" IsExpanded="false" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
