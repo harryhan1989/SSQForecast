@@ -16,7 +16,26 @@ namespace SSQForecast
         public MainForm()
         {
             InitializeComponent();
-            new InitialDbData().InitialAllNumberMappingData();
+            InitialBindingData();
         }
+
+        private void InitialBindingData()
+        {
+            InitialDbData.FromAndToTermBinding(FromTerm,ToTerm);
+        }
+
+        #region Event
+
+        private void InitialAllData_Click(object sender, EventArgs e)
+        {
+            InitialDbData.InitialAllNumberMappingData();
+        }
+
+        private void InitialNewestData_Click(object sender, EventArgs e)
+        {
+            InitialDbData.InitialNewestNumberMappingData();
+        }
+
+        #endregion
     }
 }
