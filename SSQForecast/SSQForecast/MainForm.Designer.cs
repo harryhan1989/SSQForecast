@@ -33,10 +33,15 @@
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.Search = new System.Windows.Forms.Button();
-            this.dataGridView1 = new System.Windows.Forms.DataGridView();
+            this.IntervalRateView = new System.Windows.Forms.DataGridView();
+            this.TermNum = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.PreviousTermsNum = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.WinningRate = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.InitialAllData = new System.Windows.Forms.Button();
             this.InitialNewestData = new System.Windows.Forms.Button();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
+            this.IntervalRateAnalysis = new System.Windows.Forms.Button();
+            this.IntervalRate = new System.Windows.Forms.TextBox();
+            ((System.ComponentModel.ISupportInitialize)(this.IntervalRateView)).BeginInit();
             this.SuspendLayout();
             // 
             // FromTerm
@@ -82,13 +87,33 @@
             this.Search.Text = "搜索";
             this.Search.UseVisualStyleBackColor = true;
             // 
-            // dataGridView1
+            // IntervalRateView
             // 
-            this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView1.Location = new System.Drawing.Point(92, 101);
-            this.dataGridView1.Name = "dataGridView1";
-            this.dataGridView1.Size = new System.Drawing.Size(547, 351);
-            this.dataGridView1.TabIndex = 5;
+            this.IntervalRateView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.IntervalRateView.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.TermNum,
+            this.PreviousTermsNum,
+            this.WinningRate});
+            this.IntervalRateView.Location = new System.Drawing.Point(92, 101);
+            this.IntervalRateView.Name = "IntervalRateView";
+            this.IntervalRateView.Size = new System.Drawing.Size(547, 351);
+            this.IntervalRateView.TabIndex = 5;
+            // 
+            // TermNum
+            // 
+            this.TermNum.HeaderText = "期号";
+            this.TermNum.Name = "TermNum";
+            // 
+            // PreviousTermsNum
+            // 
+            this.PreviousTermsNum.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.PreviousTermsNum.HeaderText = "预估数据期数（连续前几期）";
+            this.PreviousTermsNum.Name = "PreviousTermsNum";
+            // 
+            // WinningRate
+            // 
+            this.WinningRate.HeaderText = "中奖率（%）";
+            this.WinningRate.Name = "WinningRate";
             // 
             // InitialAllData
             // 
@@ -110,14 +135,33 @@
             this.InitialNewestData.UseVisualStyleBackColor = true;
             this.InitialNewestData.Click += new System.EventHandler(this.InitialNewestData_Click);
             // 
+            // IntervalRateAnalysis
+            // 
+            this.IntervalRateAnalysis.Location = new System.Drawing.Point(12, 461);
+            this.IntervalRateAnalysis.Name = "IntervalRateAnalysis";
+            this.IntervalRateAnalysis.Size = new System.Drawing.Size(98, 23);
+            this.IntervalRateAnalysis.TabIndex = 8;
+            this.IntervalRateAnalysis.Text = "间隔概率分析";
+            this.IntervalRateAnalysis.UseVisualStyleBackColor = true;
+            this.IntervalRateAnalysis.Click += new System.EventHandler(this.IntervalRateAnalysis_Click);
+            // 
+            // IntervalRate
+            // 
+            this.IntervalRate.Location = new System.Drawing.Point(132, 462);
+            this.IntervalRate.Name = "IntervalRate";
+            this.IntervalRate.Size = new System.Drawing.Size(100, 20);
+            this.IntervalRate.TabIndex = 9;
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(699, 496);
+            this.Controls.Add(this.IntervalRate);
+            this.Controls.Add(this.IntervalRateAnalysis);
             this.Controls.Add(this.InitialNewestData);
             this.Controls.Add(this.InitialAllData);
-            this.Controls.Add(this.dataGridView1);
+            this.Controls.Add(this.IntervalRateView);
             this.Controls.Add(this.Search);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
@@ -125,7 +169,8 @@
             this.Controls.Add(this.FromTerm);
             this.Name = "MainForm";
             this.Text = "MainForm";
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
+            this.Load += new System.EventHandler(this.MainForm_Load);
+            ((System.ComponentModel.ISupportInitialize)(this.IntervalRateView)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -138,8 +183,13 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Button Search;
-        private System.Windows.Forms.DataGridView dataGridView1;
+        private System.Windows.Forms.DataGridView IntervalRateView;
         private System.Windows.Forms.Button InitialAllData;
         private System.Windows.Forms.Button InitialNewestData;
+        private System.Windows.Forms.Button IntervalRateAnalysis;
+        private System.Windows.Forms.TextBox IntervalRate;
+        private System.Windows.Forms.DataGridViewTextBoxColumn TermNum;
+        private System.Windows.Forms.DataGridViewTextBoxColumn PreviousTermsNum;
+        private System.Windows.Forms.DataGridViewTextBoxColumn WinningRate;
     }
 }

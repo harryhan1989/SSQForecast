@@ -12,6 +12,7 @@ using System.Xml.Linq;
 using System.Reflection;
 using System.Runtime.Serialization.Json;
 using System.Text.RegularExpressions;
+using System.Collections;
 
 namespace SSQForecast.Helper
 {
@@ -992,6 +993,35 @@ namespace SSQForecast.Helper
             return result;
         }
 
+
+        #endregion
+
+        #region ssq
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="baseNum">first six num are red num, last num is blue num</param>
+        /// <param name="compareNum"></param>
+        /// <returns></returns>
+        public static bool IsPrize(string[] baseNums,string[] compareNums)
+        {
+            if (baseNums[6] == compareNums[6])
+            {
+                ArrayList al  = new ArrayList(baseNums);
+                al.RemoveAt(6);
+                baseNums= (string [])al.ToArray(typeof(string));
+                ArrayList a2  = new ArrayList(compareNums);
+                a2.RemoveAt(6);
+                compareNums=(string [])a2.ToArray(typeof(string));
+                return true;
+            }
+            else
+            {
+                string[] duplicateNums = baseNums.Where(t => compareNums.Contains(t)).ToArray();
+                return (duplicateNums.Count() >= 4) ? true : false;
+            }
+        }
 
         #endregion
     }

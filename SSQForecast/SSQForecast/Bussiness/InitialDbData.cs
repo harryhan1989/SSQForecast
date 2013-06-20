@@ -14,10 +14,20 @@ namespace SSQForecast.Bussiness
 
         public InitialDbData()
         {
-            numberMappings = ssqdbentities.NumberMapping.ToList();
+            using (var ssqdbentities = new ssqdbEntities())
+            {
+                try
+                {
+                    numberMappings = ssqdbentities.NumberMapping.ToList();
+                }
+                catch (Exception e)
+                {
+                    MessageBox.Show(e.Message);
+                }
+            }
         }
 
-        public static void InitialAllNumberMappingData()
+        public void InitialAllNumberMappingData()
         {
             using (var ssqdbentities=new ssqdbEntities())
             {               
@@ -33,7 +43,7 @@ namespace SSQForecast.Bussiness
             }
         }
 
-        public static void InitialNewestNumberMappingData()
+        public void InitialNewestNumberMappingData()
         {
             using (var ssqdbentities = new ssqdbEntities())
             {
@@ -48,16 +58,16 @@ namespace SSQForecast.Bussiness
             } 
         }
 
-        public static void FromAndToTermBinding(ComboBox fromTerm, ComboBox toTerm)
+        public void FromAndToTermBinding(ComboBox fromTerm, ComboBox toTerm)
         {
             using (var ssqdbentities = new ssqdbEntities())
             {
                 try
                 {
-                    fromTerm.DataSource = ssqdbentities.NumberMapping.ToList();
+                    fromTerm.DataSource = numberMappings;
                     fromTerm.DisplayMember = "TermNum";
                     fromTerm.ValueMember = "TermNum";
-                    toTerm.DataSource = ssqdbentities.NumberMapping.ToList();
+                    toTerm.DataSource = numberMappings;
                     toTerm.DisplayMember = "TermNum";
                     toTerm.ValueMember = "TermNum";
                    

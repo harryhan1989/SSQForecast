@@ -76,6 +76,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Bussiness\HighOccurrenceRateAnalysis.cs" />
     <Compile Include="Bussiness\InitialDbData.cs" />
     <Compile Include="Helper\ConvertHelper.cs" />
     <Compile Include="MainForm.cs">
