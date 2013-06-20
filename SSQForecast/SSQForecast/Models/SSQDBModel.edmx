@@ -91,14 +91,65 @@
           <Property Name="SixthPrizeNum" Type="int" Nullable="false" />
           <Property Name="AmountPerSixthPrize" Type="decimal" Nullable="false" Precision="53" />
         </EntityType>
+        <!--Errors Found During Generation:
+      warning 6002: The table/view 'main.UV_NumberMapping' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.
+      warning 6005: The data type '' is currently not supported for the target .NET Framework version; the column 'RedNum1' in table 'main.UV_NumberMapping' was excluded.
+      warning 6005: The data type '' is currently not supported for the target .NET Framework version; the column 'RedNum2' in table 'main.UV_NumberMapping' was excluded.
+      warning 6005: The data type '' is currently not supported for the target .NET Framework version; the column 'RedNum3' in table 'main.UV_NumberMapping' was excluded.
+      warning 6005: The data type '' is currently not supported for the target .NET Framework version; the column 'RedNum4' in table 'main.UV_NumberMapping' was excluded.
+      warning 6005: The data type '' is currently not supported for the target .NET Framework version; the column 'RedNum5' in table 'main.UV_NumberMapping' was excluded.
+      warning 6005: The data type '' is currently not supported for the target .NET Framework version; the column 'RedNum6' in table 'main.UV_NumberMapping' was excluded.
+      warning 6005: The data type '' is currently not supported for the target .NET Framework version; the column 'RedNum7' in table 'main.UV_NumberMapping' was excluded.
+      warning 6005: The data type '' is currently not supported for the target .NET Framework version; the column 'RedNum8' in table 'main.UV_NumberMapping' was excluded.
+      warning 6005: The data type '' is currently not supported for the target .NET Framework version; the column 'RedNum9' in table 'main.UV_NumberMapping' was excluded.
+      warning 6005: The data type '' is currently not supported for the target .NET Framework version; the column 'RedNum10' in table 'main.UV_NumberMapping' was excluded.
+      warning 6005: The data type '' is currently not supported for the target .NET Framework version; the column 'RedNum11' in table 'main.UV_NumberMapping' was excluded.
+      warning 6005: The data type '' is currently not supported for the target .NET Framework version; the column 'RedNum12' in table 'main.UV_NumberMapping' was excluded.
+      warning 6005: The data type '' is currently not supported for the target .NET Framework version; the column 'RedNum13' in table 'main.UV_NumberMapping' was excluded.
+      warning 6005: The data type '' is currently not supported for the target .NET Framework version; the column 'RedNum14' in table 'main.UV_NumberMapping' was excluded.
+      warning 6005: The data type '' is currently not supported for the target .NET Framework version; the column 'RedNum15' in table 'main.UV_NumberMapping' was excluded.
+      warning 6005: The data type '' is currently not supported for the target .NET Framework version; the column 'RedNum16' in table 'main.UV_NumberMapping' was excluded.
+      warning 6005: The data type '' is currently not supported for the target .NET Framework version; the column 'RedNum17' in table 'main.UV_NumberMapping' was excluded.
+      warning 6005: The data type '' is currently not supported for the target .NET Framework version; the column 'RedNum18' in table 'main.UV_NumberMapping' was excluded.
+      warning 6005: The data type '' is currently not supported for the target .NET Framework version; the column 'RedNum19' in table 'main.UV_NumberMapping' was excluded.
+      warning 6005: The data type '' is currently not supported for the target .NET Framework version; the column 'RedNum20' in table 'main.UV_NumberMapping' was excluded.
+      warning 6005: The data type '' is currently not supported for the target .NET Framework version; the column 'RedNum21' in table 'main.UV_NumberMapping' was excluded.
+      warning 6005: The data type '' is currently not supported for the target .NET Framework version; the column 'RedNum22' in table 'main.UV_NumberMapping' was excluded.
+      warning 6005: The data type '' is currently not supported for the target .NET Framework version; the column 'RedNum23' in table 'main.UV_NumberMapping' was excluded.
+      warning 6005: The data type '' is currently not supported for the target .NET Framework version; the column 'RedNum24' in table 'main.UV_NumberMapping' was excluded.
+      warning 6005: The data type '' is currently not supported for the target .NET Framework version; the column 'RedNum25' in table 'main.UV_NumberMapping' was excluded.
+      warning 6005: The data type '' is currently not supported for the target .NET Framework version; the column 'RedNum26' in table 'main.UV_NumberMapping' was excluded.
+      warning 6005: The data type '' is currently not supported for the target .NET Framework version; the column 'RedNum27' in table 'main.UV_NumberMapping' was excluded.
+      warning 6005: The data type '' is currently not supported for the target .NET Framework version; the column 'RedNum28' in table 'main.UV_NumberMapping' was excluded.
+      warning 6005: The data type '' is currently not supported for the target .NET Framework version; the column 'RedNum29' in table 'main.UV_NumberMapping' was excluded.
+      warning 6005: The data type '' is currently not supported for the target .NET Framework version; the column 'RedNum30' in table 'main.UV_NumberMapping' was excluded.
+      warning 6005: The data type '' is currently not supported for the target .NET Framework version; the column 'RedNum31' in table 'main.UV_NumberMapping' was excluded.
+      warning 6005: The data type '' is currently not supported for the target .NET Framework version; the column 'RedNum32' in table 'main.UV_NumberMapping' was excluded.
+      warning 6005: The data type '' is currently not supported for the target .NET Framework version; the column 'BlueNum1' in table 'main.UV_NumberMapping' was excluded.
+      warning 6005: The data type '' is currently not supported for the target .NET Framework version; the column 'BlueNum2' in table 'main.UV_NumberMapping' was excluded.
+      warning 6005: The data type '' is currently not supported for the target .NET Framework version; the column 'BlueNum3' in table 'main.UV_NumberMapping' was excluded.
+      warning 6005: The data type '' is currently not supported for the target .NET Framework version; the column 'BlueNum4' in table 'main.UV_NumberMapping' was excluded.
+      warning 6005: The data type '' is currently not supported for the target .NET Framework version; the column 'BlueNum5' in table 'main.UV_NumberMapping' was excluded.
+      warning 6005: The data type '' is currently not supported for the target .NET Framework version; the column 'BlueNum6' in table 'main.UV_NumberMapping' was excluded.
+      warning 6005: The data type '' is currently not supported for the target .NET Framework version; the column 'BlueNum7' in table 'main.UV_NumberMapping' was excluded.
+      warning 6005: The data type '' is currently not supported for the target .NET Framework version; the column 'BlueNum8' in table 'main.UV_NumberMapping' was excluded.
+      warning 6005: The data type '' is currently not supported for the target .NET Framework version; the column 'BlueNum9' in table 'main.UV_NumberMapping' was excluded.
+      warning 6005: The data type '' is currently not supported for the target .NET Framework version; the column 'BlueNum10' in table 'main.UV_NumberMapping' was excluded.
+      warning 6005: The data type '' is currently not supported for the target .NET Framework version; the column 'BlueNum11' in table 'main.UV_NumberMapping' was excluded.
+      warning 6005: The data type '' is currently not supported for the target .NET Framework version; the column 'BlueNum12' in table 'main.UV_NumberMapping' was excluded.
+      warning 6005: The data type '' is currently not supported for the target .NET Framework version; the column 'BlueNum13' in table 'main.UV_NumberMapping' was excluded.
+      warning 6005: The data type '' is currently not supported for the target .NET Framework version; the column 'BlueNum14' in table 'main.UV_NumberMapping' was excluded.
+      warning 6005: The data type '' is currently not supported for the target .NET Framework version; the column 'BlueNum15' in table 'main.UV_NumberMapping' was excluded.
+      warning 6005: The data type '' is currently not supported for the target .NET Framework version; the column 'BlueNum16' in table 'main.UV_NumberMapping' was excluded.
+      -->
       </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="ssqdbModel" Alias="Self" p1:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:p1="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
         <EntityContainer Name="ssqdbEntities" p1:LazyLoadingEnabled="true">
           <EntitySet Name="TotalTermInfos" EntityType="ssqdbModel.TotalTermInfo" />
-          <EntitySet Name="NumberMappings" EntityType="ssqdbModel.NumberMapping" />
-        </EntityContainer>
+          <EntitySet Name="NumberMapping" EntityType="ssqdbModel.NumberMapping" />
+          </EntityContainer>
         <EntityType Name="TotalTermInfo">
           <Key>
             <PropertyRef Name="TermNum" />
@@ -216,7 +267,7 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="NumberMappings">
+          <EntitySetMapping Name="NumberMapping">
             <EntityTypeMapping TypeName="ssqdbModel.NumberMapping">
               <MappingFragment StoreEntitySet="NumberMapping">
                 <ScalarProperty Name="BlueNum16" ColumnName="BlueNum16" />
@@ -271,7 +322,7 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-        </EntityContainerMapping>
+          </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
   </edmx:Runtime>
@@ -285,7 +336,7 @@
     <Options>
       <DesignerInfoPropertySet>
         <DesignerProperty Name="ValidateOnBuild" Value="true" />
-        <DesignerProperty Name="EnablePluralization" Value="True" />
+        <DesignerProperty Name="EnablePluralization" Value="False" />
         <DesignerProperty Name="IncludeForeignKeysInModel" Value="True" />
         <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
       </DesignerInfoPropertySet>
