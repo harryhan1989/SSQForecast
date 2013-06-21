@@ -25,7 +25,7 @@ namespace SSQForecast.Models
             throw new UnintentionalCodeFirstException();
         }
     
-        public DbSet<TotalTermInfo> TotalTermInfos { get; set; }
         public DbSet<NumberMapping> NumberMapping { get; set; }
+        public DbSet<TotalTermInfos> TotalTermInfos { get; set; }
     }
 }

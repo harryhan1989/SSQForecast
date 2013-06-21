@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.FromTerm = new System.Windows.Forms.ComboBox();
             this.ToTerm = new System.Windows.Forms.ComboBox();
             this.label1 = new System.Windows.Forms.Label();
@@ -41,6 +42,9 @@
             this.InitialNewestData = new System.Windows.Forms.Button();
             this.IntervalRateAnalysis = new System.Windows.Forms.Button();
             this.IntervalRate = new System.Windows.Forms.TextBox();
+            this.TermMinCount = new System.Windows.Forms.TextBox();
+            this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
+            this.TermMaxCount = new System.Windows.Forms.TextBox();
             ((System.ComponentModel.ISupportInitialize)(this.IntervalRateView)).BeginInit();
             this.SuspendLayout();
             // 
@@ -151,12 +155,36 @@
             this.IntervalRate.Name = "IntervalRate";
             this.IntervalRate.Size = new System.Drawing.Size(100, 20);
             this.IntervalRate.TabIndex = 9;
+            this.IntervalRate.Text = "10";
+            this.toolTip1.SetToolTip(this.IntervalRate, "间隔数例：5");
+            // 
+            // TermMinCount
+            // 
+            this.TermMinCount.AccessibleDescription = "";
+            this.TermMinCount.Location = new System.Drawing.Point(248, 462);
+            this.TermMinCount.Name = "TermMinCount";
+            this.TermMinCount.Size = new System.Drawing.Size(100, 20);
+            this.TermMinCount.TabIndex = 10;
+            this.TermMinCount.Tag = "";
+            this.TermMinCount.Text = "50";
+            this.toolTip1.SetToolTip(this.TermMinCount, "分析期数最小值例：10");
+            // 
+            // TermMaxCount
+            // 
+            this.TermMaxCount.Location = new System.Drawing.Point(368, 461);
+            this.TermMaxCount.Name = "TermMaxCount";
+            this.TermMaxCount.Size = new System.Drawing.Size(100, 20);
+            this.TermMaxCount.TabIndex = 11;
+            this.TermMaxCount.Text = "100";
+            this.toolTip1.SetToolTip(this.TermMaxCount, "分析期数最大值例：100");
             // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(699, 496);
+            this.Controls.Add(this.TermMaxCount);
+            this.Controls.Add(this.TermMinCount);
             this.Controls.Add(this.IntervalRate);
             this.Controls.Add(this.IntervalRateAnalysis);
             this.Controls.Add(this.InitialNewestData);
@@ -191,5 +219,8 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn TermNum;
         private System.Windows.Forms.DataGridViewTextBoxColumn PreviousTermsNum;
         private System.Windows.Forms.DataGridViewTextBoxColumn WinningRate;
+        private System.Windows.Forms.TextBox TermMinCount;
+        private System.Windows.Forms.ToolTip toolTip1;
+        private System.Windows.Forms.TextBox TermMaxCount;
     }
 }

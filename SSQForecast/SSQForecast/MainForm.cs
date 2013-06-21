@@ -14,31 +14,31 @@ namespace SSQForecast
 {
     public partial class MainForm : Form
     {
-        private InitialDbData initialDbData;
-        private HighOccurrenceRateAnalysis highOccurrenceRateAnalysis;
+        private InitialDbData _initialDbData;
+        private HighOccurrenceRateAnalysis _highOccurrenceRateAnalysis;
         public MainForm()
         {
             InitializeComponent();
+            _initialDbData = new InitialDbData();
+            _highOccurrenceRateAnalysis = new HighOccurrenceRateAnalysis();
             InitialBindingData();
-            initialDbData = new InitialDbData();
-            highOccurrenceRateAnalysis = new HighOccurrenceRateAnalysis();
         }
 
         private void InitialBindingData()
         {
-            initialDbData.FromAndToTermBinding(FromTerm, ToTerm);
+            _initialDbData.FromAndToTermBinding(FromTerm, ToTerm);
         }
 
         #region Event
 
         private void InitialAllData_Click(object sender, EventArgs e)
         {
-            initialDbData.InitialAllNumberMappingData();
+            _initialDbData.InitialAllNumberMappingData();
         }
 
         private void InitialNewestData_Click(object sender, EventArgs e)
         {
-            initialDbData.InitialNewestNumberMappingData();
+            _initialDbData.InitialNewestNumberMappingData();
         }
 
         #endregion
@@ -50,7 +50,7 @@ namespace SSQForecast
 
         private void IntervalRateAnalysis_Click(object sender, EventArgs e)
         {
-            highOccurrenceRateAnalysis.Analysis(IntervalRateView,ConvertHelper.ConvertInt(IntervalRate));
+            _highOccurrenceRateAnalysis.Analysis(IntervalRateView, ConvertHelper.ConvertInt(IntervalRate.Text), ConvertHelper.ConvertInt(TermMinCount.Text), ConvertHelper.ConvertInt(TermMaxCount.Text));
         }
     }
 }
