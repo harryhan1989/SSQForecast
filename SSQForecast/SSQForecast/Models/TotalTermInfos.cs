@@ -16,7 +16,7 @@ namespace SSQForecast.Models
     {
         public long TermNum { get; set; }
         public System.DateTime TermDate { get; set; }
-        public long RedNum1 { get; set; }   
+        public long RedNum1 { get; set; }
         public long RedNum2 { get; set; }
         public long RedNum3 { get; set; }
         public long RedNum4 { get; set; }

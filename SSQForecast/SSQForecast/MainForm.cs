@@ -20,7 +20,7 @@ namespace SSQForecast
         {
             InitializeComponent();
             _initialDbData = new InitialDbData();
-            _highOccurrenceRateAnalysis = new HighOccurrenceRateAnalysis();
+            _highOccurrenceRateAnalysis = new HighOccurrenceRateAnalysis(this);
             InitialBindingData();
         }
 
@@ -50,7 +50,7 @@ namespace SSQForecast
 
         private void IntervalRateAnalysis_Click(object sender, EventArgs e)
         {
-            _highOccurrenceRateAnalysis.Analysis(IntervalRateView, ConvertHelper.ConvertInt(IntervalRate.Text), ConvertHelper.ConvertInt(TermMinCount.Text), ConvertHelper.ConvertInt(TermMaxCount.Text));
+            _highOccurrenceRateAnalysis.Analysis(ConvertHelper.ConvertInt(IntervalRate.Text), ConvertHelper.ConvertInt(TermMinCount.Text), ConvertHelper.ConvertInt(TermMaxCount.Text));
         }
     }
 }

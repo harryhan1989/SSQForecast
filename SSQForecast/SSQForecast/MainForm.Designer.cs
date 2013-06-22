@@ -35,9 +35,6 @@
             this.label2 = new System.Windows.Forms.Label();
             this.Search = new System.Windows.Forms.Button();
             this.IntervalRateView = new System.Windows.Forms.DataGridView();
-            this.TermNum = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.PreviousTermsNum = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.WinningRate = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.InitialAllData = new System.Windows.Forms.Button();
             this.InitialNewestData = new System.Windows.Forms.Button();
             this.IntervalRateAnalysis = new System.Windows.Forms.Button();
@@ -45,7 +42,13 @@
             this.TermMinCount = new System.Windows.Forms.TextBox();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.TermMaxCount = new System.Windows.Forms.TextBox();
+            this.ProgressingMessage = new System.Windows.Forms.RichTextBox();
+            this.intervalRateViewModelBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.termNumDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.previousTermsNumDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.winningRateDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.IntervalRateView)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.intervalRateViewModelBindingSource)).BeginInit();
             this.SuspendLayout();
             // 
             // FromTerm
@@ -93,31 +96,17 @@
             // 
             // IntervalRateView
             // 
+            this.IntervalRateView.AutoGenerateColumns = false;
             this.IntervalRateView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.IntervalRateView.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.TermNum,
-            this.PreviousTermsNum,
-            this.WinningRate});
+            this.termNumDataGridViewTextBoxColumn,
+            this.previousTermsNumDataGridViewTextBoxColumn,
+            this.winningRateDataGridViewTextBoxColumn});
+            this.IntervalRateView.DataSource = this.intervalRateViewModelBindingSource;
             this.IntervalRateView.Location = new System.Drawing.Point(92, 101);
             this.IntervalRateView.Name = "IntervalRateView";
-            this.IntervalRateView.Size = new System.Drawing.Size(547, 351);
+            this.IntervalRateView.Size = new System.Drawing.Size(547, 209);
             this.IntervalRateView.TabIndex = 5;
-            // 
-            // TermNum
-            // 
-            this.TermNum.HeaderText = "期号";
-            this.TermNum.Name = "TermNum";
-            // 
-            // PreviousTermsNum
-            // 
-            this.PreviousTermsNum.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.PreviousTermsNum.HeaderText = "预估数据期数（连续前几期）";
-            this.PreviousTermsNum.Name = "PreviousTermsNum";
-            // 
-            // WinningRate
-            // 
-            this.WinningRate.HeaderText = "中奖率（%）";
-            this.WinningRate.Name = "WinningRate";
             // 
             // InitialAllData
             // 
@@ -178,11 +167,43 @@
             this.TermMaxCount.Text = "100";
             this.toolTip1.SetToolTip(this.TermMaxCount, "分析期数最大值例：100");
             // 
+            // ProgressingMessage
+            // 
+            this.ProgressingMessage.Location = new System.Drawing.Point(92, 316);
+            this.ProgressingMessage.Name = "ProgressingMessage";
+            this.ProgressingMessage.Size = new System.Drawing.Size(547, 124);
+            this.ProgressingMessage.TabIndex = 12;
+            this.ProgressingMessage.Text = "";
+            // 
+            // intervalRateViewModelBindingSource
+            // 
+            this.intervalRateViewModelBindingSource.DataSource = typeof(SSQForecast.Models.IntervalRateViewModel);
+            // 
+            // termNumDataGridViewTextBoxColumn
+            // 
+            this.termNumDataGridViewTextBoxColumn.DataPropertyName = "TermNum";
+            this.termNumDataGridViewTextBoxColumn.HeaderText = "期号";
+            this.termNumDataGridViewTextBoxColumn.Name = "termNumDataGridViewTextBoxColumn";
+            // 
+            // previousTermsNumDataGridViewTextBoxColumn
+            // 
+            this.previousTermsNumDataGridViewTextBoxColumn.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.previousTermsNumDataGridViewTextBoxColumn.DataPropertyName = "PreviousTermsNum";
+            this.previousTermsNumDataGridViewTextBoxColumn.HeaderText = "预估数据期数（连续前几期）";
+            this.previousTermsNumDataGridViewTextBoxColumn.Name = "previousTermsNumDataGridViewTextBoxColumn";
+            // 
+            // winningRateDataGridViewTextBoxColumn
+            // 
+            this.winningRateDataGridViewTextBoxColumn.DataPropertyName = "WinningRate";
+            this.winningRateDataGridViewTextBoxColumn.HeaderText = "中奖率（%）";
+            this.winningRateDataGridViewTextBoxColumn.Name = "winningRateDataGridViewTextBoxColumn";
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(699, 496);
+            this.Controls.Add(this.ProgressingMessage);
             this.Controls.Add(this.TermMaxCount);
             this.Controls.Add(this.TermMinCount);
             this.Controls.Add(this.IntervalRate);
@@ -199,6 +220,7 @@
             this.Text = "MainForm";
             this.Load += new System.EventHandler(this.MainForm_Load);
             ((System.ComponentModel.ISupportInitialize)(this.IntervalRateView)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.intervalRateViewModelBindingSource)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -216,11 +238,13 @@
         private System.Windows.Forms.Button InitialNewestData;
         private System.Windows.Forms.Button IntervalRateAnalysis;
         private System.Windows.Forms.TextBox IntervalRate;
-        private System.Windows.Forms.DataGridViewTextBoxColumn TermNum;
-        private System.Windows.Forms.DataGridViewTextBoxColumn PreviousTermsNum;
-        private System.Windows.Forms.DataGridViewTextBoxColumn WinningRate;
         private System.Windows.Forms.TextBox TermMinCount;
         private System.Windows.Forms.ToolTip toolTip1;
         private System.Windows.Forms.TextBox TermMaxCount;
+        private System.Windows.Forms.RichTextBox ProgressingMessage;
+        private System.Windows.Forms.DataGridViewTextBoxColumn termNumDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn previousTermsNumDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn winningRateDataGridViewTextBoxColumn;
+        private System.Windows.Forms.BindingSource intervalRateViewModelBindingSource;
     }
 }

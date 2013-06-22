@@ -13,6 +13,7 @@ using System.Reflection;
 using System.Runtime.Serialization.Json;
 using System.Text.RegularExpressions;
 using System.Collections;
+using System.Windows.Forms;
 
 namespace SSQForecast.Helper
 {
@@ -1008,22 +1009,65 @@ namespace SSQForecast.Helper
         {
             if (baseNums[6] == compareNums[6])
             {
-                ArrayList al  = new ArrayList(baseNums);
-                al.RemoveAt(6);
-                baseNums= (string [])al.ToArray(typeof(string));
-                ArrayList a2  = new ArrayList(compareNums);
-                a2.RemoveAt(6);
-                compareNums=(string [])a2.ToArray(typeof(string));
                 return true;
             }
             else
             {
+                ArrayList al = new ArrayList(baseNums);
+                al.RemoveAt(6);
+                baseNums = (string[])al.ToArray(typeof(string));
+                ArrayList a2 = new ArrayList(compareNums);
+                a2.RemoveAt(6);
+                compareNums = (string[])a2.ToArray(typeof(string));
                 string[] duplicateNums = baseNums.Where(t => compareNums.Contains(t)).ToArray();
-                return (duplicateNums.Count() >= 4) ? true : false;
+                var isprize = (duplicateNums.Count() >= 4) ? true : false;
+                return isprize;
             }
         }
 
+        /// <summary>
+        /// delegate to solve the cross thread issue
+        /// </summary>
+        /// <param name="result"></param>
+        private delegate void SetTextHandler(Control control, string message);
+        public static void ShowMessage(Control control,string message)
+        {
+            message += "\r\n";
+            var richTextBox = control as RichTextBox;
+            if (richTextBox != null)
+            {
+                if (richTextBox.InvokeRequired == true)
+                {
+                    SetTextHandler set = new SetTextHandler(ShowMessage);
+                    richTextBox.Invoke(set, new object[] { control, message });
+                }
+                else
+                {
+                    richTextBox.AppendText(message);
+                }
+            }
+        }
 
+        private delegate void DelegateBindDataSource<T>(Control control, List<T> t);
+        public static void BindDataSource<T>(Control control, List<T> t)
+        {
+            var dataGridView = control as DataGridView;
+            if (dataGridView != null)
+            {
+                if (dataGridView.InvokeRequired == true)
+                {
+                    DelegateBindDataSource<T> bind = new DelegateBindDataSource<T>(BindDataSource);
+                    dataGridView.Invoke(bind, new object[] { control, t });
+                }
+                else
+                {
+                    BindingSource bindingSource = new BindingSource();
+                    bindingSource.ResetBindings(false);
+                    bindingSource.DataSource = t;
+                    dataGridView.DataSource = bindingSource;
+                }
+            }
+        }
 
         #endregion
 
