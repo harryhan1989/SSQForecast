@@ -43,10 +43,14 @@
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.TermMaxCount = new System.Windows.Forms.TextBox();
             this.ProgressingMessage = new System.Windows.Forms.RichTextBox();
-            this.intervalRateViewModelBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.IntervalAnalysisMethodRed = new System.Windows.Forms.ComboBox();
+            this.IntervalAnalysisMethodBlue = new System.Windows.Forms.ComboBox();
+            this.checkedListBox1 = new System.Windows.Forms.CheckedListBox();
+            this.checkedListBox2 = new System.Windows.Forms.CheckedListBox();
             this.termNumDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.previousTermsNumDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.winningRateDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.intervalRateViewModelBindingSource = new System.Windows.Forms.BindingSource(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.IntervalRateView)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.intervalRateViewModelBindingSource)).BeginInit();
             this.SuspendLayout();
@@ -61,6 +65,7 @@
             // 
             // ToTerm
             // 
+            this.ToTerm.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.AllSystemSources;
             this.ToTerm.FormattingEnabled = true;
             this.ToTerm.Location = new System.Drawing.Point(301, 63);
             this.ToTerm.Name = "ToTerm";
@@ -96,6 +101,8 @@
             // 
             // IntervalRateView
             // 
+            this.IntervalRateView.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.IntervalRateView.AutoGenerateColumns = false;
             this.IntervalRateView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.IntervalRateView.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
@@ -169,15 +176,86 @@
             // 
             // ProgressingMessage
             // 
+            this.ProgressingMessage.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.ProgressingMessage.Location = new System.Drawing.Point(92, 316);
             this.ProgressingMessage.Name = "ProgressingMessage";
             this.ProgressingMessage.Size = new System.Drawing.Size(547, 124);
             this.ProgressingMessage.TabIndex = 12;
             this.ProgressingMessage.Text = "";
             // 
-            // intervalRateViewModelBindingSource
+            // IntervalAnalysisMethodRed
             // 
-            this.intervalRateViewModelBindingSource.DataSource = typeof(SSQForecast.Models.IntervalRateViewModel);
+            this.IntervalAnalysisMethodRed.FormattingEnabled = true;
+            this.IntervalAnalysisMethodRed.Items.AddRange(new object[] {
+            "红(Top6出现率最高)蓝(出现率最高)"});
+            this.IntervalAnalysisMethodRed.Location = new System.Drawing.Point(488, 461);
+            this.IntervalAnalysisMethodRed.Name = "IntervalAnalysisMethodRed";
+            this.IntervalAnalysisMethodRed.Size = new System.Drawing.Size(65, 21);
+            this.IntervalAnalysisMethodRed.TabIndex = 13;
+            this.toolTip1.SetToolTip(this.IntervalAnalysisMethodRed, "间隔率红位置");
+            // 
+            // IntervalAnalysisMethodBlue
+            // 
+            this.IntervalAnalysisMethodBlue.FormattingEnabled = true;
+            this.IntervalAnalysisMethodBlue.Items.AddRange(new object[] {
+            "红(Top6出现率最高)蓝(出现率最高)"});
+            this.IntervalAnalysisMethodBlue.Location = new System.Drawing.Point(574, 460);
+            this.IntervalAnalysisMethodBlue.Name = "IntervalAnalysisMethodBlue";
+            this.IntervalAnalysisMethodBlue.Size = new System.Drawing.Size(65, 21);
+            this.IntervalAnalysisMethodBlue.TabIndex = 14;
+            this.toolTip1.SetToolTip(this.IntervalAnalysisMethodBlue, "间隔率分析方式蓝");
+            // 
+            // checkedListBox1
+            // 
+            this.checkedListBox1.FormattingEnabled = true;
+            this.checkedListBox1.Items.AddRange(new object[] {
+            "1",
+            "2",
+            "3",
+            "4",
+            "5",
+            "6",
+            "7",
+            "8",
+            "9",
+            "10",
+            "11",
+            "12",
+            "13",
+            "14",
+            "15",
+            "16",
+            "17",
+            "18",
+            "19",
+            "20",
+            "21",
+            "22",
+            "23",
+            "24",
+            "25",
+            "26",
+            "27",
+            "28",
+            "29",
+            "30",
+            "31",
+            "32"});
+            this.checkedListBox1.Location = new System.Drawing.Point(12, 490);
+            this.checkedListBox1.Name = "checkedListBox1";
+            this.checkedListBox1.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
+            this.checkedListBox1.Size = new System.Drawing.Size(627, 64);
+            this.checkedListBox1.TabIndex = 15;
+            // 
+            // checkedListBox2
+            // 
+            this.checkedListBox2.FormattingEnabled = true;
+            this.checkedListBox2.Location = new System.Drawing.Point(12, 547);
+            this.checkedListBox2.MultiColumn = true;
+            this.checkedListBox2.Name = "checkedListBox2";
+            this.checkedListBox2.Size = new System.Drawing.Size(626, 19);
+            this.checkedListBox2.TabIndex = 16;
             // 
             // termNumDataGridViewTextBoxColumn
             // 
@@ -198,11 +276,19 @@
             this.winningRateDataGridViewTextBoxColumn.HeaderText = "中奖率（%）";
             this.winningRateDataGridViewTextBoxColumn.Name = "winningRateDataGridViewTextBoxColumn";
             // 
+            // intervalRateViewModelBindingSource
+            // 
+            this.intervalRateViewModelBindingSource.DataSource = typeof(SSQForecast.Models.IntervalRateViewModel);
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(699, 496);
+            this.ClientSize = new System.Drawing.Size(699, 568);
+            this.Controls.Add(this.checkedListBox2);
+            this.Controls.Add(this.checkedListBox1);
+            this.Controls.Add(this.IntervalAnalysisMethodBlue);
+            this.Controls.Add(this.IntervalAnalysisMethodRed);
             this.Controls.Add(this.ProgressingMessage);
             this.Controls.Add(this.TermMaxCount);
             this.Controls.Add(this.TermMinCount);
@@ -246,5 +332,9 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn previousTermsNumDataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn winningRateDataGridViewTextBoxColumn;
         private System.Windows.Forms.BindingSource intervalRateViewModelBindingSource;
+        private System.Windows.Forms.ComboBox IntervalAnalysisMethodRed;
+        private System.Windows.Forms.ComboBox IntervalAnalysisMethodBlue;
+        private System.Windows.Forms.CheckedListBox checkedListBox1;
+        private System.Windows.Forms.CheckedListBox checkedListBox2;
     }
 }

@@ -1034,39 +1034,49 @@ namespace SSQForecast.Helper
         {
             message += "\r\n";
             var richTextBox = control as RichTextBox;
-            if (richTextBox != null)
+            try
             {
-                if (richTextBox.InvokeRequired == true)
+                if (richTextBox != null)
                 {
-                    SetTextHandler set = new SetTextHandler(ShowMessage);
-                    richTextBox.Invoke(set, new object[] { control, message });
-                }
-                else
-                {
-                    richTextBox.AppendText(message);
+                    if (richTextBox.InvokeRequired == true)
+                    {
+                        SetTextHandler set = new SetTextHandler(ShowMessage);
+                        richTextBox.Invoke(set, new object[] { control, message });
+                    }
+                    else
+                    {
+                        richTextBox.AppendText(message);
+                    }
                 }
             }
+            catch (Exception e)
+            { }
         }
 
         private delegate void DelegateBindDataSource<T>(Control control, List<T> t);
         public static void BindDataSource<T>(Control control, List<T> t)
         {
             var dataGridView = control as DataGridView;
-            if (dataGridView != null)
+            try
             {
-                if (dataGridView.InvokeRequired == true)
+                if (dataGridView != null)
                 {
-                    DelegateBindDataSource<T> bind = new DelegateBindDataSource<T>(BindDataSource);
-                    dataGridView.Invoke(bind, new object[] { control, t });
-                }
-                else
-                {
-                    BindingSource bindingSource = new BindingSource();
-                    bindingSource.ResetBindings(false);
-                    bindingSource.DataSource = t;
-                    dataGridView.DataSource = bindingSource;
+                    if (dataGridView.InvokeRequired == true)
+                    {
+                        DelegateBindDataSource<T> bind = new DelegateBindDataSource<T>(BindDataSource);
+                        dataGridView.Invoke(bind, new object[] { control, t });
+                    }
+                    else
+                    {
+                        BindingSource bindingSource = new BindingSource();
+                        bindingSource.ResetBindings(false);
+                        bindingSource.DataSource = t;
+                        dataGridView.DataSource = bindingSource;
+                    }
                 }
             }
+            catch (Exception e)
+            { }
         }
 
         #endregion
