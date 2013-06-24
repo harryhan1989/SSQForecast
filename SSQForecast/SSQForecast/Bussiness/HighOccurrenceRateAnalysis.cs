@@ -15,10 +15,11 @@ namespace SSQForecast.Bussiness
 {
     public class HighOccurrenceRateAnalysis
     {
-        MainForm _mainForm;
-        List<IntervalRateViewModel> intervalRatePrizeList = new List<IntervalRateViewModel>();
-        List<Thread> analysisThreads = new List<Thread>();
-        int maxThreads = 5;
+        readonly MainForm _mainForm;
+        readonly List<IntervalRateViewModel> _intervalRatePrizeList = new List<IntervalRateViewModel>();
+        readonly List<Thread> _analysisThreads = new List<Thread>();
+        private const int _maxThreads = 5;
+
         public HighOccurrenceRateAnalysis(MainForm form)
         {
             _mainForm = form;
@@ -30,7 +31,7 @@ namespace SSQForecast.Bussiness
             {
                 try
                 {
-                    intervalRatePrizeList.Clear();
+                    _intervalRatePrizeList.Clear();
                     List<TotalTermInfos> totalTermInfos = ssqdbentities.TotalTermInfos.OrderByDescending(k => k.TermNum).ToList();
                     var termCount = termMinCount;
 
@@ -38,24 +39,24 @@ namespace SSQForecast.Bussiness
                         {
                             while (termCount <= termMaxCount)
                             {
-                                lock (analysisThreads)
+                                lock (_analysisThreads)
                                 {
                                     var currentTermCount = termCount;
                                     Thread newThread = new Thread(() =>
                                     {
 
                                         var intervalRateViewModel = Calculate(totalTermInfos, currentTermCount);
-                                        lock (intervalRatePrizeList)
+                                        lock (_intervalRatePrizeList)
                                         {
                                             if (intervalRateViewModel != null)
-                                                intervalRatePrizeList.Add(intervalRateViewModel);
+                                                _intervalRatePrizeList.Add(intervalRateViewModel);
                                         }
                                     });
                                     newThread.IsBackground = true;
-                                    analysisThreads.Add(newThread);
+                                    _analysisThreads.Add(newThread);
 
                                     newThread.Start();
-                                    if (analysisThreads.Count == maxThreads)
+                                    if (_analysisThreads.Count == _maxThreads)
                                     {
                                         DrawView();
                                     }
@@ -80,17 +81,17 @@ namespace SSQForecast.Bussiness
         private void DrawView()
         {
             Thread.Sleep(1000);
-            for (int i = analysisThreads.Count-1; i >= 0; i--)
+            for (int i = _analysisThreads.Count-1; i >= 0; i--)
             {
-                var thread = analysisThreads[i];
+                var thread = _analysisThreads[i];
                 if (!thread.IsAlive)
                 {
-                    analysisThreads.Remove(thread);
+                    _analysisThreads.Remove(thread);
                 }
             }
-            if (analysisThreads.Count == 0)
+            if (_analysisThreads.Count == 0)
             {
-                ConvertHelper.BindDataSource<IntervalRateViewModel>(_mainForm.Controls["IntervalRateView"], intervalRatePrizeList);
+                ConvertHelper.BindDataSource<IntervalRateViewModel>(_mainForm.Controls["IntervalRateView"], _intervalRatePrizeList);
                 return;
             }
             DrawView();

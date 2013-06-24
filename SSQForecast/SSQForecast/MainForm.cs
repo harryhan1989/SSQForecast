@@ -41,16 +41,59 @@ namespace SSQForecast
             _initialDbData.InitialNewestNumberMappingData();
         }
 
-        #endregion
-
         private void MainForm_Load(object sender, EventArgs e)
         {
 
         }
 
+        private void MainForm_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            Environment.Exit(1);
+        }
+
         private void IntervalRateAnalysis_Click(object sender, EventArgs e)
         {
+
             _highOccurrenceRateAnalysis.Analysis(ConvertHelper.ConvertInt(IntervalRate.Text), ConvertHelper.ConvertInt(TermMinCount.Text), ConvertHelper.ConvertInt(TermMaxCount.Text));
         }
+
+        private void RedNumPositions_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (RedNumPositions.CheckedItems.Count > 6)
+            {
+                MessageBox.Show(@"红球六个位置选择不能超过6个！");
+                this.RedNumPositions.SetItemChecked(this.RedNumPositions.SelectedIndex,false);
+            }
+        }
+
+        private void BlueNumPosition_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (BlueNumPosition.CheckedItems.Count >= 1)
+            {
+                MessageBox.Show(@"篮球位置选择不能超过1个！");
+                this.BlueNumPosition.SelectedItems.Remove(this.BlueNumPosition.SelectedItem);
+                this.BlueNumPosition.SetItemChecked(this.BlueNumPosition.SelectedIndex, false);
+            }
+        }
+
+        #endregion
+
+        #region Verify
+
+        private void VerifyRedAndBlueNumsPositions()
+        {
+            if (RedNumPositions.SelectedItems.Count!=6)
+            {
+                MessageBox.Show(@"红球六个位置必须全部选好后才能进行分析！");
+            }
+
+            if (BlueNumPosition.SelectedItems.Count != 1)
+            {
+                MessageBox.Show(@"篮球1个位置必须全部选好后才能进行分析！");
+            }
+        }
+
+        #endregion
+
     }
 }

@@ -35,6 +35,7 @@
             this.label2 = new System.Windows.Forms.Label();
             this.Search = new System.Windows.Forms.Button();
             this.IntervalRateView = new System.Windows.Forms.DataGridView();
+            this.NextTermNumForecast = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.InitialAllData = new System.Windows.Forms.Button();
             this.InitialNewestData = new System.Windows.Forms.Button();
             this.IntervalRateAnalysis = new System.Windows.Forms.Button();
@@ -42,16 +43,16 @@
             this.TermMinCount = new System.Windows.Forms.TextBox();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.TermMaxCount = new System.Windows.Forms.TextBox();
+            this.RedNumPositions = new System.Windows.Forms.CheckedListBox();
+            this.BlueNumPosition = new System.Windows.Forms.CheckedListBox();
             this.ProgressingMessage = new System.Windows.Forms.RichTextBox();
-            this.IntervalAnalysisMethodRed = new System.Windows.Forms.ComboBox();
-            this.IntervalAnalysisMethodBlue = new System.Windows.Forms.ComboBox();
-            this.checkedListBox1 = new System.Windows.Forms.CheckedListBox();
-            this.checkedListBox2 = new System.Windows.Forms.CheckedListBox();
             this.termNumDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.previousTermsNumDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.winningRateDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.intervalRateViewModelBindingSource1 = new System.Windows.Forms.BindingSource(this.components);
             this.intervalRateViewModelBindingSource = new System.Windows.Forms.BindingSource(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.IntervalRateView)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.intervalRateViewModelBindingSource1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.intervalRateViewModelBindingSource)).BeginInit();
             this.SuspendLayout();
             // 
@@ -101,19 +102,28 @@
             // 
             // IntervalRateView
             // 
-            this.IntervalRateView.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            this.IntervalRateView.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.IntervalRateView.AutoGenerateColumns = false;
             this.IntervalRateView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.IntervalRateView.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.termNumDataGridViewTextBoxColumn,
             this.previousTermsNumDataGridViewTextBoxColumn,
-            this.winningRateDataGridViewTextBoxColumn});
-            this.IntervalRateView.DataSource = this.intervalRateViewModelBindingSource;
+            this.winningRateDataGridViewTextBoxColumn,
+            this.NextTermNumForecast});
+            this.IntervalRateView.DataSource = this.intervalRateViewModelBindingSource1;
             this.IntervalRateView.Location = new System.Drawing.Point(92, 101);
             this.IntervalRateView.Name = "IntervalRateView";
             this.IntervalRateView.Size = new System.Drawing.Size(547, 209);
             this.IntervalRateView.TabIndex = 5;
+            // 
+            // NextTermNumForecast
+            // 
+            this.NextTermNumForecast.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.NextTermNumForecast.DataPropertyName = "NextTermNumForecast";
+            this.NextTermNumForecast.HeaderText = "基于当前概率下期预测号";
+            this.NextTermNumForecast.Name = "NextTermNumForecast";
             // 
             // InitialAllData
             // 
@@ -137,7 +147,8 @@
             // 
             // IntervalRateAnalysis
             // 
-            this.IntervalRateAnalysis.Location = new System.Drawing.Point(12, 461);
+            this.IntervalRateAnalysis.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.IntervalRateAnalysis.Location = new System.Drawing.Point(12, 449);
             this.IntervalRateAnalysis.Name = "IntervalRateAnalysis";
             this.IntervalRateAnalysis.Size = new System.Drawing.Size(98, 23);
             this.IntervalRateAnalysis.TabIndex = 8;
@@ -147,7 +158,8 @@
             // 
             // IntervalRate
             // 
-            this.IntervalRate.Location = new System.Drawing.Point(132, 462);
+            this.IntervalRate.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.IntervalRate.Location = new System.Drawing.Point(132, 450);
             this.IntervalRate.Name = "IntervalRate";
             this.IntervalRate.Size = new System.Drawing.Size(100, 20);
             this.IntervalRate.TabIndex = 9;
@@ -157,7 +169,8 @@
             // TermMinCount
             // 
             this.TermMinCount.AccessibleDescription = "";
-            this.TermMinCount.Location = new System.Drawing.Point(248, 462);
+            this.TermMinCount.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.TermMinCount.Location = new System.Drawing.Point(248, 450);
             this.TermMinCount.Name = "TermMinCount";
             this.TermMinCount.Size = new System.Drawing.Size(100, 20);
             this.TermMinCount.TabIndex = 10;
@@ -167,49 +180,21 @@
             // 
             // TermMaxCount
             // 
-            this.TermMaxCount.Location = new System.Drawing.Point(368, 461);
+            this.TermMaxCount.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.TermMaxCount.Location = new System.Drawing.Point(368, 449);
             this.TermMaxCount.Name = "TermMaxCount";
             this.TermMaxCount.Size = new System.Drawing.Size(100, 20);
             this.TermMaxCount.TabIndex = 11;
             this.TermMaxCount.Text = "100";
             this.toolTip1.SetToolTip(this.TermMaxCount, "分析期数最大值例：100");
             // 
-            // ProgressingMessage
+            // RedNumPositions
             // 
-            this.ProgressingMessage.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.ProgressingMessage.Location = new System.Drawing.Point(92, 316);
-            this.ProgressingMessage.Name = "ProgressingMessage";
-            this.ProgressingMessage.Size = new System.Drawing.Size(547, 124);
-            this.ProgressingMessage.TabIndex = 12;
-            this.ProgressingMessage.Text = "";
-            // 
-            // IntervalAnalysisMethodRed
-            // 
-            this.IntervalAnalysisMethodRed.FormattingEnabled = true;
-            this.IntervalAnalysisMethodRed.Items.AddRange(new object[] {
-            "红(Top6出现率最高)蓝(出现率最高)"});
-            this.IntervalAnalysisMethodRed.Location = new System.Drawing.Point(488, 461);
-            this.IntervalAnalysisMethodRed.Name = "IntervalAnalysisMethodRed";
-            this.IntervalAnalysisMethodRed.Size = new System.Drawing.Size(65, 21);
-            this.IntervalAnalysisMethodRed.TabIndex = 13;
-            this.toolTip1.SetToolTip(this.IntervalAnalysisMethodRed, "间隔率红位置");
-            // 
-            // IntervalAnalysisMethodBlue
-            // 
-            this.IntervalAnalysisMethodBlue.FormattingEnabled = true;
-            this.IntervalAnalysisMethodBlue.Items.AddRange(new object[] {
-            "红(Top6出现率最高)蓝(出现率最高)"});
-            this.IntervalAnalysisMethodBlue.Location = new System.Drawing.Point(574, 460);
-            this.IntervalAnalysisMethodBlue.Name = "IntervalAnalysisMethodBlue";
-            this.IntervalAnalysisMethodBlue.Size = new System.Drawing.Size(65, 21);
-            this.IntervalAnalysisMethodBlue.TabIndex = 14;
-            this.toolTip1.SetToolTip(this.IntervalAnalysisMethodBlue, "间隔率分析方式蓝");
-            // 
-            // checkedListBox1
-            // 
-            this.checkedListBox1.FormattingEnabled = true;
-            this.checkedListBox1.Items.AddRange(new object[] {
+            this.RedNumPositions.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.RedNumPositions.CheckOnClick = true;
+            this.RedNumPositions.ColumnWidth = 40;
+            this.RedNumPositions.FormattingEnabled = true;
+            this.RedNumPositions.Items.AddRange(new object[] {
             "1",
             "2",
             "3",
@@ -242,39 +227,83 @@
             "30",
             "31",
             "32"});
-            this.checkedListBox1.Location = new System.Drawing.Point(12, 490);
-            this.checkedListBox1.Name = "checkedListBox1";
-            this.checkedListBox1.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
-            this.checkedListBox1.Size = new System.Drawing.Size(627, 64);
-            this.checkedListBox1.TabIndex = 15;
+            this.RedNumPositions.Location = new System.Drawing.Point(378, 316);
+            this.RedNumPositions.MultiColumn = true;
+            this.RedNumPositions.Name = "RedNumPositions";
+            this.RedNumPositions.Size = new System.Drawing.Size(169, 124);
+            this.RedNumPositions.TabIndex = 15;
+            this.toolTip1.SetToolTip(this.RedNumPositions, "红球位置选择(必须只选6个)");
+            this.RedNumPositions.SelectedIndexChanged += new System.EventHandler(this.RedNumPositions_SelectedIndexChanged);
             // 
-            // checkedListBox2
+            // BlueNumPosition
             // 
-            this.checkedListBox2.FormattingEnabled = true;
-            this.checkedListBox2.Location = new System.Drawing.Point(12, 547);
-            this.checkedListBox2.MultiColumn = true;
-            this.checkedListBox2.Name = "checkedListBox2";
-            this.checkedListBox2.Size = new System.Drawing.Size(626, 19);
-            this.checkedListBox2.TabIndex = 16;
+            this.BlueNumPosition.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.BlueNumPosition.CheckOnClick = true;
+            this.BlueNumPosition.ColumnWidth = 40;
+            this.BlueNumPosition.FormattingEnabled = true;
+            this.BlueNumPosition.Items.AddRange(new object[] {
+            "1",
+            "2",
+            "3",
+            "4",
+            "5",
+            "6",
+            "7",
+            "8",
+            "9",
+            "10",
+            "11",
+            "12",
+            "13",
+            "14",
+            "15",
+            "16"});
+            this.BlueNumPosition.Location = new System.Drawing.Point(554, 317);
+            this.BlueNumPosition.MultiColumn = true;
+            this.BlueNumPosition.Name = "BlueNumPosition";
+            this.BlueNumPosition.Size = new System.Drawing.Size(85, 124);
+            this.BlueNumPosition.TabIndex = 17;
+            this.toolTip1.SetToolTip(this.BlueNumPosition, "篮球位置选择（选择且只能选择一个）");
+            this.BlueNumPosition.SelectedIndexChanged += new System.EventHandler(this.BlueNumPosition_SelectedIndexChanged);
+            // 
+            // ProgressingMessage
+            // 
+            this.ProgressingMessage.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.ProgressingMessage.Location = new System.Drawing.Point(92, 316);
+            this.ProgressingMessage.Name = "ProgressingMessage";
+            this.ProgressingMessage.Size = new System.Drawing.Size(277, 124);
+            this.ProgressingMessage.TabIndex = 12;
+            this.ProgressingMessage.Text = "";
             // 
             // termNumDataGridViewTextBoxColumn
             // 
             this.termNumDataGridViewTextBoxColumn.DataPropertyName = "TermNum";
+            this.termNumDataGridViewTextBoxColumn.FillWeight = 81.61094F;
             this.termNumDataGridViewTextBoxColumn.HeaderText = "期号";
             this.termNumDataGridViewTextBoxColumn.Name = "termNumDataGridViewTextBoxColumn";
             // 
             // previousTermsNumDataGridViewTextBoxColumn
             // 
-            this.previousTermsNumDataGridViewTextBoxColumn.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.previousTermsNumDataGridViewTextBoxColumn.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
             this.previousTermsNumDataGridViewTextBoxColumn.DataPropertyName = "PreviousTermsNum";
+            this.previousTermsNumDataGridViewTextBoxColumn.FillWeight = 171.9971F;
             this.previousTermsNumDataGridViewTextBoxColumn.HeaderText = "预估数据期数（连续前几期）";
             this.previousTermsNumDataGridViewTextBoxColumn.Name = "previousTermsNumDataGridViewTextBoxColumn";
+            this.previousTermsNumDataGridViewTextBoxColumn.Width = 117;
             // 
             // winningRateDataGridViewTextBoxColumn
             // 
+            this.winningRateDataGridViewTextBoxColumn.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
             this.winningRateDataGridViewTextBoxColumn.DataPropertyName = "WinningRate";
+            this.winningRateDataGridViewTextBoxColumn.FillWeight = 46.39172F;
             this.winningRateDataGridViewTextBoxColumn.HeaderText = "中奖率（%）";
             this.winningRateDataGridViewTextBoxColumn.Name = "winningRateDataGridViewTextBoxColumn";
+            this.winningRateDataGridViewTextBoxColumn.Width = 81;
+            // 
+            // intervalRateViewModelBindingSource1
+            // 
+            this.intervalRateViewModelBindingSource1.DataSource = typeof(SSQForecast.Models.IntervalRateViewModel);
             // 
             // intervalRateViewModelBindingSource
             // 
@@ -284,11 +313,9 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(699, 568);
-            this.Controls.Add(this.checkedListBox2);
-            this.Controls.Add(this.checkedListBox1);
-            this.Controls.Add(this.IntervalAnalysisMethodBlue);
-            this.Controls.Add(this.IntervalAnalysisMethodRed);
+            this.ClientSize = new System.Drawing.Size(699, 487);
+            this.Controls.Add(this.BlueNumPosition);
+            this.Controls.Add(this.RedNumPositions);
             this.Controls.Add(this.ProgressingMessage);
             this.Controls.Add(this.TermMaxCount);
             this.Controls.Add(this.TermMinCount);
@@ -304,8 +331,10 @@
             this.Controls.Add(this.FromTerm);
             this.Name = "MainForm";
             this.Text = "MainForm";
+            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.MainForm_FormClosed);
             this.Load += new System.EventHandler(this.MainForm_Load);
             ((System.ComponentModel.ISupportInitialize)(this.IntervalRateView)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.intervalRateViewModelBindingSource1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.intervalRateViewModelBindingSource)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -328,13 +357,13 @@
         private System.Windows.Forms.ToolTip toolTip1;
         private System.Windows.Forms.TextBox TermMaxCount;
         private System.Windows.Forms.RichTextBox ProgressingMessage;
+        private System.Windows.Forms.BindingSource intervalRateViewModelBindingSource;
+        private System.Windows.Forms.CheckedListBox RedNumPositions;
+        private System.Windows.Forms.CheckedListBox BlueNumPosition;
+        private System.Windows.Forms.BindingSource intervalRateViewModelBindingSource1;
         private System.Windows.Forms.DataGridViewTextBoxColumn termNumDataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn previousTermsNumDataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn winningRateDataGridViewTextBoxColumn;
-        private System.Windows.Forms.BindingSource intervalRateViewModelBindingSource;
-        private System.Windows.Forms.ComboBox IntervalAnalysisMethodRed;
-        private System.Windows.Forms.ComboBox IntervalAnalysisMethodBlue;
-        private System.Windows.Forms.CheckedListBox checkedListBox1;
-        private System.Windows.Forms.CheckedListBox checkedListBox2;
+        private System.Windows.Forms.DataGridViewTextBoxColumn NextTermNumForecast;
     }
 }
