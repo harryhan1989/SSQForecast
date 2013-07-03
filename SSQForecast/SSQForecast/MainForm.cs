@@ -68,7 +68,7 @@ namespace SSQForecast
 
         private void BlueNumPosition_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (BlueNumPosition.CheckedItems.Count >= 1)
+            if (BlueNumPosition.CheckedItems.Count > 1)
             {
                 MessageBox.Show(@"篮球位置选择不能超过1个！");
                 this.BlueNumPosition.SelectedItems.Remove(this.BlueNumPosition.SelectedItem);
