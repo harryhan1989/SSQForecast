@@ -18,11 +18,17 @@ namespace SSQForecast.Bussiness
         readonly MainForm _mainForm;
         readonly List<IntervalRateViewModel> _intervalRatePrizeList = new List<IntervalRateViewModel>();
         readonly List<Thread> _analysisThreads = new List<Thread>();
+        CheckedListBox.CheckedItemCollection _redPositions;
+        CheckedListBox.CheckedItemCollection _bluePositions;
+
         private const int _maxThreads = 5;
 
         public HighOccurrenceRateAnalysis(MainForm form)
         {
             _mainForm = form;
+            _redPositions = (_mainForm.Controls["RedNumPositions"] as CheckedListBox).CheckedItems;
+            _bluePositions = (_mainForm.Controls["BlueNumPosition"] as CheckedListBox).CheckedItems;
+            
         }
 
         public void Analysis(int intervalRate, int termMinCount, int termMaxCount)
@@ -44,8 +50,9 @@ namespace SSQForecast.Bussiness
                                     var currentTermCount = termCount;
                                     Thread newThread = new Thread(() =>
                                     {
-
                                         var intervalRateViewModel = Calculate(totalTermInfos, currentTermCount);
+                                        var numberMappingToUse = ssqdbentities.NumberMapping.Take(termCount);
+                                        intervalRateViewModel.NextTermNumForecast = GetNumsFromTermsAndPositions(numberMappingToUse).ToString();
                                         lock (_intervalRatePrizeList)
                                         {
                                             if (intervalRateViewModel != null)
@@ -66,16 +73,82 @@ namespace SSQForecast.Bussiness
                         });
                     mainAnalysisThread.Start();
                 }
-                //Thread drawView = new Thread(() =>
-                //{
-                //    DrawView();
-                //});
-                //drawView.Start();
                 catch (Exception e)
                 {
                     MessageBox.Show(e.Message);
                 }
             }
+        }
+
+        private IntervalRateViewModel Calculate(List<TotalTermInfos> totalTermInfos, int termCount)
+        {
+            using (var ssqdbentities = new ssqdbEntities())
+            {
+                var isPrizeList = new List<Boolean>();
+                for (int j1 = 0; j1 < totalTermInfos.Count - termCount; j1++)
+                {
+                    var term = totalTermInfos[j1];
+                    var baseNums = new string[7]
+                                {
+                                    term.RedNum1.ToString(CultureInfo.InvariantCulture),
+                                    term.RedNum2.ToString(CultureInfo.InvariantCulture),
+                                    term.RedNum3.ToString(CultureInfo.InvariantCulture),
+                                    term.RedNum4.ToString(CultureInfo.InvariantCulture),
+                                    term.RedNum5.ToString(CultureInfo.InvariantCulture),
+                                    term.RedNum6.ToString(CultureInfo.InvariantCulture),
+                                    term.BlueNum.ToString(CultureInfo.InvariantCulture)
+                                };
+                    var numberMappingToUse = ssqdbentities.NumberMapping.Where(k => k.TermNum < term.TermNum).Take(termCount);
+                    if (numberMappingToUse.Count() < termCount)
+                        break;
+                    var compareNums = GetNumsFromTermsAndPositions(numberMappingToUse);
+
+                    var isPrize = ConvertHelper.IsPrize(compareNums, baseNums);
+                    isPrizeList.Add(isPrize);
+
+                    ConvertHelper.ShowMessage(_mainForm.Controls["ProgressingMessage"], string.Format("TermCount:{0};CurrentTerm:{1};isPrize{2}", termCount, j1 + ":" + term.TermNum, isPrize));
+                }
+
+                if (isPrizeList.Count > 0)
+                {
+                    var winningCount = isPrizeList.Count(k => k);
+                    var intervalRateViewModel = new IntervalRateViewModel
+                    {
+                        TermNum = totalTermInfos.First().TermNum,
+                        PreviousTermsNum = termCount,
+                        WinningRate = (winningCount * 100 / isPrizeList.Count())
+                    };
+                    ConvertHelper.ShowMessage(_mainForm.Controls["ProgressingMessage"], string.Format("TermNum{0};PreviousTermsNum{1};WinningRate{2}"
+                        , intervalRateViewModel.TermNum, intervalRateViewModel.PreviousTermsNum, intervalRateViewModel.WinningRate));
+                    return intervalRateViewModel;
+
+                }
+                else
+                {
+                    return null;
+                }
+            }
+        }
+
+        private string[] GetNumsFromTermsAndPositions(IQueryable<NumberMapping> terms)
+        {
+            string[] nums=new string[7];
+            var numberOccurrenceRate = GetNumberOccurrenceRate(terms);
+            var redNumberOccurrenceRate = numberOccurrenceRate.Where(k => k.NumberType == 0).ToList();
+            var blueNumberOccurrenceRate = numberOccurrenceRate.Where(k => k.NumberType == 1).ToList();
+            if (redNumberOccurrenceRate.Count() >= 6 && blueNumberOccurrenceRate.Any())
+            {
+                int i = 0;
+                foreach (var position in _redPositions)
+                {
+                    nums[i] = ConvertHelper.ConvertString(redNumberOccurrenceRate.ElementAt(((int)position) - 1).Number);
+                    i++;
+                }
+                nums[6] =
+                    ConvertHelper.ConvertString(blueNumberOccurrenceRate.ElementAt(((int)_bluePositions[0]) - 1).Number);
+            }
+
+            return nums;
         }
 
         private void DrawView()
@@ -95,72 +168,6 @@ namespace SSQForecast.Bussiness
                 return;
             }
             DrawView();
-        }
-
-        private IntervalRateViewModel Calculate(List<TotalTermInfos> totalTermInfos, int termCount)
-        {
-            using (var ssqdbentities = new ssqdbEntities())
-            {
-                var isPrizeList = new List<Boolean>();
-                for (int j1 = 0; j1 < totalTermInfos.Count - termCount; j1++)
-                //for (int j1 = 0; j1 < 50; j1++)
-                {
-                    var term = totalTermInfos[j1];
-                    var baseNums = new string[7]
-                                {
-                                    term.RedNum1.ToString(CultureInfo.InvariantCulture),
-                                    term.RedNum2.ToString(CultureInfo.InvariantCulture),
-                                    term.RedNum3.ToString(CultureInfo.InvariantCulture),
-                                    term.RedNum4.ToString(CultureInfo.InvariantCulture),
-                                    term.RedNum5.ToString(CultureInfo.InvariantCulture),
-                                    term.RedNum6.ToString(CultureInfo.InvariantCulture),
-                                    term.BlueNum.ToString(CultureInfo.InvariantCulture)
-                                };
-
-                    var compareNums = new string[7];
-                    var numberMappingToUse =
-                        ssqdbentities.NumberMapping.Where(k => k.TermNum < term.TermNum).Take(termCount);
-
-                    if (numberMappingToUse.Count() < termCount)
-                        break;
-                    var numberOccurrenceRate = GetNumberOccurrenceRate(numberMappingToUse);
-                    var redNumberOccurrenceRate = numberOccurrenceRate.Where(k => k.NumberType == 0).ToList();
-                    var blueNumberOccurrenceRate = numberOccurrenceRate.Where(k => k.NumberType == 1).ToList();
-                    if (redNumberOccurrenceRate.Count() >= 6 && blueNumberOccurrenceRate.Any())
-                    {
-                        for (int i = 0; i < 6; i++)
-                        {
-                            compareNums[i] =
-                                ConvertHelper.ConvertString(redNumberOccurrenceRate.ElementAt(i).Number);
-                        }
-                        compareNums[6] =
-                            ConvertHelper.ConvertString(blueNumberOccurrenceRate.ElementAt(0).Number);
-                    }
-                    var isPrize = ConvertHelper.IsPrize(compareNums, baseNums);
-                    isPrizeList.Add(isPrize);
-
-                    ConvertHelper.ShowMessage(_mainForm.Controls["ProgressingMessage"], string.Format("TermCount:{0};CurrentTerm:{1};isPrize{2}", termCount, j1 + ":" + term.TermNum, isPrize));
-                }
-
-                if (isPrizeList.Count > 0)
-                {
-                    var winningCount = isPrizeList.Count(k => k);
-                    var intervalRateViewModel=new IntervalRateViewModel
-                     {
-                         TermNum = totalTermInfos.First().TermNum,
-                         PreviousTermsNum = termCount,
-                         WinningRate = (winningCount * 100 / isPrizeList.Count())
-                     };
-                    ConvertHelper.ShowMessage(_mainForm.Controls["ProgressingMessage"], string.Format("TermNum{0};PreviousTermsNum{1};WinningRate{2}"
-                        , intervalRateViewModel.TermNum, intervalRateViewModel.PreviousTermsNum, intervalRateViewModel.WinningRate));
-                    return intervalRateViewModel;
-                    
-                }
-                else
-                {
-                    return null;
-                }
-            }
         }
 
         private IOrderedEnumerable<NumberOccurrenceRate> GetNumberOccurrenceRate(IQueryable<NumberMapping> numberMappingData)
