@@ -1002,27 +1002,24 @@ namespace SSQForecast.Helper
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="baseNum">first six num are red num, last num is blue num</param>
-        /// <param name="compareNum"></param>
+        /// <param name="baseNums">first six num are red num, last num is blue num</param>
+        /// <param name="compareNums"></param>
         /// <returns></returns>
-        public static bool IsPrize(string[] baseNums,string[] compareNums)
+        public static bool IsPrize(int[] baseNums,int[] compareNums)
         {
             if (baseNums[6] == compareNums[6])
             {
                 return true;
             }
-            else
-            {
-                ArrayList al = new ArrayList(baseNums);
-                al.RemoveAt(6);
-                baseNums = (string[])al.ToArray(typeof(string));
-                ArrayList a2 = new ArrayList(compareNums);
-                a2.RemoveAt(6);
-                compareNums = (string[])a2.ToArray(typeof(string));
-                string[] duplicateNums = baseNums.Where(t => compareNums.Contains(t)).ToArray();
-                var isprize = (duplicateNums.Count() >= 4) ? true : false;
-                return isprize;
-            }
+            var al = new ArrayList(baseNums);
+            al.RemoveAt(6);
+            baseNums = (int[])al.ToArray(typeof(int));
+            var a2 = new ArrayList(compareNums);
+            a2.RemoveAt(6);
+            compareNums = (int[])a2.ToArray(typeof(int));
+            int[] duplicateNums = baseNums.Where(t => compareNums.Contains(t)).ToArray();
+            var isprize = (duplicateNums.Count() >= 4);
+            return isprize;
         }
 
         /// <summary>

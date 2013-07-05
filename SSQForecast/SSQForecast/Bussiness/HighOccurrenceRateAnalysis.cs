@@ -39,39 +39,36 @@ namespace SSQForecast.Bussiness
                 _intervalRatePrizeList.Clear();
                 var termCount = termMinCount;
 
-                Thread mainAnalysisThread = new Thread(() =>
+                var mainAnalysisThread = new Thread(() =>
                     {
                         while (termCount <= termMaxCount)
                         {
                             lock (_analysisThreads)
                             {
                                 var currentTermCount = termCount;
-                                Thread newThread = new Thread(() =>
+                                int count = termCount;
+                                var newThread = new Thread(() =>
                                 {
                                     using (var ssqdbentities = new ssqdbEntities())
                                     {
                                         var totalTermInfos = ssqdbentities.TotalTermInfos.OrderByDescending(k => k.TermNum).ToList();
                                         var intervalRateViewModel = Calculate(totalTermInfos, currentTermCount);
-                                        var numberMappingToUse = ssqdbentities.NumberMapping.Take(termCount);
-                                        intervalRateViewModel.NextTermNumForecast = GetNumsFromTermsAndPositions(numberMappingToUse).ToString();
-                                        lock (_intervalRatePrizeList)
+                                        var numberMappingToUse = ssqdbentities.NumberMapping.Take(count);
+                                        var forecast =GetNumsFromTermsAndPositions(numberMappingToUse);
+                                        var forecastStr = forecast.Aggregate("", (current, num) => current + (num + ","));
+                                        intervalRateViewModel.NextTermNumForecast = forecastStr.TrimEnd(',');
                                         {
-                                            if (intervalRateViewModel != null)
-                                                _intervalRatePrizeList.Add(intervalRateViewModel);
+                                            _intervalRatePrizeList.Add(intervalRateViewModel);
                                         }
                                     }
-                                });
-                                newThread.IsBackground = true;
+                                }) {IsBackground = true};
                                 _analysisThreads.Add(newThread);
 
                                 newThread.Start();
-                                if (_analysisThreads.Count == _maxThreads)
-                                {
-                                    DrawView();
-                                }
                                 termCount += intervalRate;
                             }
                         }
+                        DrawView();
                     });
                 mainAnalysisThread.Start();
             }
@@ -87,18 +84,19 @@ namespace SSQForecast.Bussiness
             {
                 var isPrizeList = new List<Boolean>();
                 for (int j1 = 0; j1 < totalTermInfos.Count - termCount; j1++)
+                //for (int j1 = 0; j1 < 100; j1++)
                 {
                     var term = totalTermInfos[j1];
-                    var baseNums = new string[7]
-                                {
-                                    term.RedNum1.ToString(CultureInfo.InvariantCulture),
-                                    term.RedNum2.ToString(CultureInfo.InvariantCulture),
-                                    term.RedNum3.ToString(CultureInfo.InvariantCulture),
-                                    term.RedNum4.ToString(CultureInfo.InvariantCulture),
-                                    term.RedNum5.ToString(CultureInfo.InvariantCulture),
-                                    term.RedNum6.ToString(CultureInfo.InvariantCulture),
-                                    term.BlueNum.ToString(CultureInfo.InvariantCulture)
-                                };
+                    var baseNums = new int[7]
+                        {
+                            ConvertHelper.ConvertInt(term.RedNum1),
+                            ConvertHelper.ConvertInt(term.RedNum2),
+                            ConvertHelper.ConvertInt(term.RedNum3),
+                            ConvertHelper.ConvertInt(term.RedNum4),
+                            ConvertHelper.ConvertInt(term.RedNum5),
+                            ConvertHelper.ConvertInt(term.RedNum6),
+                            ConvertHelper.ConvertInt(term.BlueNum)
+                        };
                     var numberMappingToUse = ssqdbentities.NumberMapping.Where(k => k.TermNum < term.TermNum).Take(termCount);
                     if (numberMappingToUse.Count() < termCount)
                         break;
@@ -131,9 +129,9 @@ namespace SSQForecast.Bussiness
             }
         }
 
-        private string[] GetNumsFromTermsAndPositions(IQueryable<NumberMapping> terms)
+        private int[] GetNumsFromTermsAndPositions(IQueryable<NumberMapping> terms)
         {
-            string[] nums=new string[7];
+            var nums=new int[7];
             var numberOccurrenceRate = GetNumberOccurrenceRate(terms);
             var redNumberOccurrenceRate = numberOccurrenceRate.Where(k => k.NumberType == 0).ToList();
             var blueNumberOccurrenceRate = numberOccurrenceRate.Where(k => k.NumberType == 1).ToList();
@@ -142,11 +140,11 @@ namespace SSQForecast.Bussiness
                 int i = 0;
                 foreach (var position in _redPositions)
                 {
-                    nums[i] = ConvertHelper.ConvertString(redNumberOccurrenceRate.ElementAt((int.Parse(position.ToString())) - 1).Number);
+                    nums[i] = redNumberOccurrenceRate.ElementAt((int.Parse(position.ToString())) - 1).Number;
                     i++;
                 }
                 nums[6] =
-                    ConvertHelper.ConvertString(blueNumberOccurrenceRate.ElementAt((int.Parse(_bluePositions[0].ToString())) - 1).Number);
+                    blueNumberOccurrenceRate.ElementAt((int.Parse(_bluePositions[0].ToString())) - 1).Number;
             }
 
             return nums;

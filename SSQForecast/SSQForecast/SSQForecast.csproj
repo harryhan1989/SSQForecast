@@ -78,6 +78,7 @@
   <ItemGroup>
     <Compile Include="Bussiness\HighOccurrenceRateAnalysis.cs" />
     <Compile Include="Bussiness\InitialDbData.cs" />
+    <Compile Include="Bussiness\OnlineData17500CN.cs" />
     <Compile Include="Helper\ConvertHelper.cs" />
     <Compile Include="MainForm.cs">
       <SubType>Form</SubType>
@@ -123,8 +124,12 @@
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
     <None Include="App.Config" />
-    <None Include="Data\ssq.xls" />
-    <None Include="Data\ssqdb.sqlite" />
+    <None Include="Data\ssq.xls">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Data\ssqdb.sqlite">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <EntityDeploy Include="Models\SSQDBModel.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
       <LastGenOutput>SSQDBModel.Designer.cs</LastGenOutput>

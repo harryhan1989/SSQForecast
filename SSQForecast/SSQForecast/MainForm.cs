@@ -31,14 +31,15 @@ namespace SSQForecast
 
         #region Event
 
+        private void UpdateDataOnline_Click(object sender, EventArgs e)
+        {
+            var onlineData17500CN = new OnlineData17500CN();
+            _initialDbData.InitialNewestNumberMappingData();
+        }
+
         private void InitialAllData_Click(object sender, EventArgs e)
         {
             _initialDbData.InitialAllNumberMappingData();
-        }
-
-        private void InitialNewestData_Click(object sender, EventArgs e)
-        {
-            _initialDbData.InitialNewestNumberMappingData();
         }
 
         private void MainForm_Load(object sender, EventArgs e)
@@ -53,7 +54,7 @@ namespace SSQForecast
 
         private void IntervalRateAnalysis_Click(object sender, EventArgs e)
         {
-
+            if (VerifyRedAndBlueNumsPositions())
             _highOccurrenceRateAnalysis.Analysis(ConvertHelper.ConvertInt(IntervalRate.Text), ConvertHelper.ConvertInt(TermMinCount.Text), ConvertHelper.ConvertInt(TermMaxCount.Text));
         }
 
@@ -80,20 +81,22 @@ namespace SSQForecast
 
         #region Verify
 
-        private void VerifyRedAndBlueNumsPositions()
+        private bool VerifyRedAndBlueNumsPositions()
         {
-            if (RedNumPositions.SelectedItems.Count!=6)
+            if (RedNumPositions.CheckedItems.Count != 6)
             {
                 MessageBox.Show(@"红球六个位置必须全部选好后才能进行分析！");
+                return false;
             }
 
-            if (BlueNumPosition.SelectedItems.Count != 1)
+            if (BlueNumPosition.CheckedItems.Count != 1)
             {
                 MessageBox.Show(@"篮球1个位置必须全部选好后才能进行分析！");
+                return false;
             }
+            return true;
         }
 
         #endregion
-
     }
 }
