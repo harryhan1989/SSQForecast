@@ -20,6 +20,8 @@ namespace SSQForecast.Bussiness
         readonly List<Thread> _analysisThreads = new List<Thread>();
         CheckedListBox.CheckedItemCollection _redPositions;
         CheckedListBox.CheckedItemCollection _bluePositions;
+        long _chooseMaxTermNum;
+        System.Windows.Forms.Timer timer = new System.Windows.Forms.Timer();
 
         private const int _maxThreads = 5;
 
@@ -28,6 +30,7 @@ namespace SSQForecast.Bussiness
             _mainForm = form;
             _redPositions = (_mainForm.Controls["RedNumPositions"] as CheckedListBox).CheckedItems;
             _bluePositions = (_mainForm.Controls["BlueNumPosition"] as CheckedListBox).CheckedItems;
+            _chooseMaxTermNum =ConvertHelper.ConvertLong((_mainForm.Controls["MaxTermNum"] as ComboBox).SelectedValue);
             
         }
 
@@ -38,6 +41,11 @@ namespace SSQForecast.Bussiness
             {
                 _intervalRatePrizeList.Clear();
                 var termCount = termMinCount;
+
+                timer.Tick += new EventHandler(DrawView); // Everytime timer ticks, timer_Tick will be called
+                timer.Interval = (1000) * (5);              // Timer will tick evert second
+                timer.Enabled = true;                       // Enable the timer
+                timer.Start();                              // Start the timer
 
                 var mainAnalysisThread = new Thread(() =>
                     {
@@ -51,7 +59,7 @@ namespace SSQForecast.Bussiness
                                 {
                                     using (var ssqdbentities = new ssqdbEntities())
                                     {
-                                        var totalTermInfos = ssqdbentities.TotalTermInfos.OrderByDescending(k => k.TermNum).ToList();
+                                        var totalTermInfos = ssqdbentities.TotalTermInfos.Where(w=>w.TermNum<=_chooseMaxTermNum).OrderByDescending(k => k.TermNum).ToList();
                                         var intervalRateViewModel = Calculate(totalTermInfos, currentTermCount);
                                         var numberMappingToUse = ssqdbentities.NumberMapping.Take(count);
                                         var forecast =GetNumsFromTermsAndPositions(numberMappingToUse);
@@ -63,12 +71,14 @@ namespace SSQForecast.Bussiness
                                     }
                                 }) {IsBackground = true};
                                 _analysisThreads.Add(newThread);
-
                                 newThread.Start();
+                                while (_analysisThreads.Count >= _maxThreads)
+                                {
+                                    Thread.Sleep(5000);
+                                }
                                 termCount += intervalRate;
                             }
                         }
-                        DrawView();
                     });
                 mainAnalysisThread.Start();
             }
@@ -83,8 +93,8 @@ namespace SSQForecast.Bussiness
             using (var ssqdbentities = new ssqdbEntities())
             {
                 var isPrizeList = new List<Boolean>();
-                for (int j1 = 0; j1 < totalTermInfos.Count - termCount; j1++)
-                //for (int j1 = 0; j1 < 100; j1++)
+                //for (int j1 = 0; j1 < totalTermInfos.Count - termCount; j1++)
+                for (int j1 = 0; j1 < 100; j1++)
                 {
                     var term = totalTermInfos[j1];
                     var baseNums = new int[7]
@@ -150,23 +160,23 @@ namespace SSQForecast.Bussiness
             return nums;
         }
 
-        private void DrawView()
+        private void DrawView(object sender, EventArgs e)
         {
-            Thread.Sleep(1000);
+            var isChanged = false;
             for (int i = _analysisThreads.Count-1; i >= 0; i--)
             {
                 var thread = _analysisThreads[i];
                 if (!thread.IsAlive)
                 {
                     _analysisThreads.Remove(thread);
+                    isChanged = true;
                 }
             }
-            if (_analysisThreads.Count == 0)
+
+            if (isChanged)
             {
                 ConvertHelper.BindDataSource<IntervalRateViewModel>(_mainForm.Controls["IntervalRateView"], _intervalRatePrizeList);
-                return;
             }
-            DrawView();
         }
 
         private IOrderedEnumerable<NumberOccurrenceRate> GetNumberOccurrenceRate(IQueryable<NumberMapping> numberMappingData)

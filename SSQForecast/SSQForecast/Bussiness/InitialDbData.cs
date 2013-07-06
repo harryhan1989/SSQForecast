@@ -18,7 +18,7 @@ namespace SSQForecast.Bussiness
             {
                 try
                 {
-                    numberMappings = ssqdbentities.NumberMapping.ToList();
+                    numberMappings = ssqdbentities.NumberMapping.OrderByDescending(m=>m.TermNum).ToList();
                 }
                 catch (Exception e)
                 {
@@ -58,19 +58,15 @@ namespace SSQForecast.Bussiness
             } 
         }
 
-        public void FromAndToTermBinding(ComboBox fromTerm, ComboBox toTerm)
+        public void ComboBoxTermBinding(ComboBox termComboBox)
         {
             using (var ssqdbentities = new ssqdbEntities())
             {
                 try
                 {
-                    fromTerm.DataSource = numberMappings;
-                    fromTerm.DisplayMember = "TermNum";
-                    fromTerm.ValueMember = "TermNum";
-                    toTerm.DataSource = numberMappings;
-                    toTerm.DisplayMember = "TermNum";
-                    toTerm.ValueMember = "TermNum";
-                   
+                    termComboBox.DataSource = numberMappings;
+                    termComboBox.DisplayMember = "TermNum";
+                    termComboBox.ValueMember = "TermNum";                   
                 }
                 catch (Exception e)
                 {

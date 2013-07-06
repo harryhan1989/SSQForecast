@@ -20,13 +20,14 @@ namespace SSQForecast
         {
             InitializeComponent();
             _initialDbData = new InitialDbData();
-            _highOccurrenceRateAnalysis = new HighOccurrenceRateAnalysis(this);
             InitialBindingData();
         }
 
         private void InitialBindingData()
         {
-            _initialDbData.FromAndToTermBinding(FromTerm, ToTerm);
+            _initialDbData.ComboBoxTermBinding(FromTerm);
+            _initialDbData.ComboBoxTermBinding(ToTerm);
+            _initialDbData.ComboBoxTermBinding(MaxTermNum);
         }
 
         #region Event
@@ -34,12 +35,16 @@ namespace SSQForecast
         private void UpdateDataOnline_Click(object sender, EventArgs e)
         {
             var onlineData17500CN = new OnlineData17500CN();
+            onlineData17500CN.UpdateNewest();
             _initialDbData.InitialNewestNumberMappingData();
+            InitialBindingData();
+            MessageBox.Show("更新成功！");
         }
 
         private void InitialAllData_Click(object sender, EventArgs e)
         {
             _initialDbData.InitialAllNumberMappingData();
+            MessageBox.Show("更新成功！");
         }
 
         private void MainForm_Load(object sender, EventArgs e)
@@ -54,6 +59,7 @@ namespace SSQForecast
 
         private void IntervalRateAnalysis_Click(object sender, EventArgs e)
         {
+            _highOccurrenceRateAnalysis = new HighOccurrenceRateAnalysis(this);
             if (VerifyRedAndBlueNumsPositions())
             _highOccurrenceRateAnalysis.Analysis(ConvertHelper.ConvertInt(IntervalRate.Text), ConvertHelper.ConvertInt(TermMinCount.Text), ConvertHelper.ConvertInt(TermMaxCount.Text));
         }
@@ -72,8 +78,12 @@ namespace SSQForecast
             if (BlueNumPosition.CheckedItems.Count > 1)
             {
                 MessageBox.Show(@"篮球位置选择不能超过1个！");
-                this.BlueNumPosition.SelectedItems.Remove(this.BlueNumPosition.SelectedItem);
-                this.BlueNumPosition.SetItemChecked(this.BlueNumPosition.SelectedIndex, false);
+                try
+                {
+                    this.BlueNumPosition.SelectedItems.Remove(this.BlueNumPosition.SelectedItem);
+                    this.BlueNumPosition.SetItemChecked(this.BlueNumPosition.SelectedIndex, false);
+                }
+                catch { }
             }
         }
 

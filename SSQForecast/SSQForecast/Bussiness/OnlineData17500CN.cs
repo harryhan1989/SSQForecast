@@ -24,21 +24,24 @@ namespace SSQForecast.Bussiness
             {
                 myWebClient.DownloadFile(_url, _downloadFullPath);
             }
-            UpdateNewest();
         }
 
         public void UpdateNewest()
-        {
-            var newestTermInfos= ReadCsv(2013070);
+        {           
             using (var ssqdbentities = new ssqdbEntities())
             {
-                foreach (var totalTermInfo in newestTermInfos)
+                var currentMaxTermNum=ssqdbentities.TotalTermInfos.Max(m => m.TermNum);
+                var newestTermInfos = ReadCsv(currentMaxTermNum);
+                if (newestTermInfos.Count > 0)
                 {
-                    ssqdbentities.TotalTermInfos.Add(totalTermInfo);
-                    ssqdbentities.Set<TotalTermInfos>();
-                    ssqdbentities.ChangeTracker.Entries();
+                    foreach (var totalTermInfo in newestTermInfos)
+                    {
+                        ssqdbentities.TotalTermInfos.Add(totalTermInfo);
+                        //ssqdbentities.Set<TotalTermInfos>();
+                        //ssqdbentities.ChangeTracker.Entries();
+                    }
+                    ssqdbentities.SaveChanges();
                 }
-                ssqdbentities.SaveChanges();
             }
         }
 
