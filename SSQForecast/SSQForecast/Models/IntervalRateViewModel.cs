@@ -10,6 +10,7 @@ namespace SSQForecast.Models
     {
         public long TermNum { get; set; }
         public long PreviousTermsNum { get; set; }
+        public int MaxRecursionTermsThisJob { get; set; }
         public float WinningRate { get; set; }
         public string NextTermNumForecast { get; set; }
     }

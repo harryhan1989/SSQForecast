@@ -16,7 +16,7 @@ namespace SSQForecast.Bussiness
     public class HighOccurrenceRateAnalysis
     {
         readonly MainForm _mainForm;
-        readonly List<IntervalRateViewModel> _intervalRatePrizeList = new List<IntervalRateViewModel>();
+        readonly static List<IntervalRateViewModel> _intervalRatePrizeList = new List<IntervalRateViewModel>();
         readonly List<Thread> _analysisThreads = new List<Thread>();
         CheckedListBox.CheckedItemCollection _redPositions;
         CheckedListBox.CheckedItemCollection _bluePositions;
@@ -39,7 +39,7 @@ namespace SSQForecast.Bussiness
 
             try
             {
-                _intervalRatePrizeList.Clear();
+                //_intervalRatePrizeList.Clear();
                 var termCount = termMinCount;
 
                 timer.Tick += new EventHandler(DrawView); // Everytime timer ticks, timer_Tick will be called
@@ -65,6 +65,7 @@ namespace SSQForecast.Bussiness
                                         var forecast =GetNumsFromTermsAndPositions(numberMappingToUse);
                                         var forecastStr = forecast.Aggregate("", (current, num) => current + (num + ","));
                                         intervalRateViewModel.NextTermNumForecast = forecastStr.TrimEnd(',');
+                                        lock (_intervalRatePrizeList)
                                         {
                                             _intervalRatePrizeList.Add(intervalRateViewModel);
                                         }
@@ -125,6 +126,7 @@ namespace SSQForecast.Bussiness
                     var intervalRateViewModel = new IntervalRateViewModel
                     {
                         TermNum = totalTermInfos.First().TermNum,
+                        MaxRecursionTermsThisJob = maxRecursionTermsPerJob,
                         PreviousTermsNum = termCount,
                         WinningRate = (winningCount * 100 / isPrizeList.Count())
                     };
@@ -176,7 +178,7 @@ namespace SSQForecast.Bussiness
 
             if (isChanged)
             {
-                ConvertHelper.BindDataSource<IntervalRateViewModel>(_mainForm.Controls["IntervalRateView"], _intervalRatePrizeList);
+                ConvertHelper.BindDataSource<IntervalRateViewModel>(_mainForm.Controls["IntervalRateView"], _intervalRatePrizeList.OrderByDescending(x=>x.WinningRate).ToList());
             }
         }
 

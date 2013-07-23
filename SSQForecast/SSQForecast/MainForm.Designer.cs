@@ -35,7 +35,6 @@
             this.label2 = new System.Windows.Forms.Label();
             this.Search = new System.Windows.Forms.Button();
             this.IntervalRateView = new System.Windows.Forms.DataGridView();
-            this.NextTermNumForecast = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.UpdateDataOnline = new System.Windows.Forms.Button();
             this.InitialAllData = new System.Windows.Forms.Button();
             this.IntervalRateAnalysis = new System.Windows.Forms.Button();
@@ -46,12 +45,14 @@
             this.RedNumPositions = new System.Windows.Forms.CheckedListBox();
             this.BlueNumPosition = new System.Windows.Forms.CheckedListBox();
             this.MaxTermNum = new System.Windows.Forms.ComboBox();
+            this.MaxRecursionTermsPerJob = new System.Windows.Forms.TextBox();
             this.ProgressingMessage = new System.Windows.Forms.RichTextBox();
+            this.MaxRecursionTermsThisJob = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.NextTermNumForecast = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.termNumDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.previousTermsNumDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.winningRateDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.intervalRateViewModelBindingSource = new System.Windows.Forms.BindingSource(this.components);
-            this.MaxRecursionTermsPerJob = new System.Windows.Forms.TextBox();
             ((System.ComponentModel.ISupportInitialize)(this.IntervalRateView)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.intervalRateViewModelBindingSource)).BeginInit();
             this.SuspendLayout();
@@ -110,6 +111,7 @@
             this.IntervalRateView.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.termNumDataGridViewTextBoxColumn,
             this.previousTermsNumDataGridViewTextBoxColumn,
+            this.MaxRecursionTermsThisJob,
             this.winningRateDataGridViewTextBoxColumn,
             this.NextTermNumForecast});
             this.IntervalRateView.DataSource = this.intervalRateViewModelBindingSource;
@@ -117,13 +119,6 @@
             this.IntervalRateView.Name = "IntervalRateView";
             this.IntervalRateView.Size = new System.Drawing.Size(547, 209);
             this.IntervalRateView.TabIndex = 5;
-            // 
-            // NextTermNumForecast
-            // 
-            this.NextTermNumForecast.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.NextTermNumForecast.DataPropertyName = "NextTermNumForecast";
-            this.NextTermNumForecast.HeaderText = "基于当前概率下期预测号";
-            this.NextTermNumForecast.Name = "NextTermNumForecast";
             // 
             // UpdateDataOnline
             // 
@@ -276,6 +271,16 @@
             this.MaxTermNum.TabIndex = 18;
             this.toolTip1.SetToolTip(this.MaxTermNum, "最大期号");
             // 
+            // MaxRecursionTermsPerJob
+            // 
+            this.MaxRecursionTermsPerJob.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.MaxRecursionTermsPerJob.Location = new System.Drawing.Point(378, 449);
+            this.MaxRecursionTermsPerJob.Name = "MaxRecursionTermsPerJob";
+            this.MaxRecursionTermsPerJob.Size = new System.Drawing.Size(56, 20);
+            this.MaxRecursionTermsPerJob.TabIndex = 19;
+            this.MaxRecursionTermsPerJob.Text = "100";
+            this.toolTip1.SetToolTip(this.MaxRecursionTermsPerJob, "单次Job最大递归期数");
+            // 
             // ProgressingMessage
             // 
             this.ProgressingMessage.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
@@ -285,6 +290,19 @@
             this.ProgressingMessage.Size = new System.Drawing.Size(277, 124);
             this.ProgressingMessage.TabIndex = 12;
             this.ProgressingMessage.Text = "";
+            // 
+            // MaxRecursionTermsThisJob
+            // 
+            this.MaxRecursionTermsThisJob.DataPropertyName = "MaxRecursionTermsThisJob";
+            this.MaxRecursionTermsThisJob.HeaderText = "最大递归期数";
+            this.MaxRecursionTermsThisJob.Name = "MaxRecursionTermsThisJob";
+            // 
+            // NextTermNumForecast
+            // 
+            this.NextTermNumForecast.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.NextTermNumForecast.DataPropertyName = "NextTermNumForecast";
+            this.NextTermNumForecast.HeaderText = "基于当前概率下期预测号";
+            this.NextTermNumForecast.Name = "NextTermNumForecast";
             // 
             // termNumDataGridViewTextBoxColumn
             // 
@@ -314,16 +332,6 @@
             // intervalRateViewModelBindingSource
             // 
             this.intervalRateViewModelBindingSource.DataSource = typeof(SSQForecast.Models.IntervalRateViewModel);
-            // 
-            // MaxRecursionTermsPerJob
-            // 
-            this.MaxRecursionTermsPerJob.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.MaxRecursionTermsPerJob.Location = new System.Drawing.Point(378, 449);
-            this.MaxRecursionTermsPerJob.Name = "MaxRecursionTermsPerJob";
-            this.MaxRecursionTermsPerJob.Size = new System.Drawing.Size(56, 20);
-            this.MaxRecursionTermsPerJob.TabIndex = 19;
-            this.MaxRecursionTermsPerJob.Text = "100";
-            this.toolTip1.SetToolTip(this.MaxRecursionTermsPerJob, "单次Job最大递归期数");
             // 
             // MainForm
             // 
@@ -376,12 +384,13 @@
         private System.Windows.Forms.RichTextBox ProgressingMessage;
         private System.Windows.Forms.CheckedListBox RedNumPositions;
         private System.Windows.Forms.CheckedListBox BlueNumPosition;
+        private System.Windows.Forms.ComboBox MaxTermNum;
+        private System.Windows.Forms.TextBox MaxRecursionTermsPerJob;
         private System.Windows.Forms.BindingSource intervalRateViewModelBindingSource;
         private System.Windows.Forms.DataGridViewTextBoxColumn termNumDataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn previousTermsNumDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn MaxRecursionTermsThisJob;
         private System.Windows.Forms.DataGridViewTextBoxColumn winningRateDataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn NextTermNumForecast;
-        private System.Windows.Forms.ComboBox MaxTermNum;
-        private System.Windows.Forms.TextBox MaxRecursionTermsPerJob;
     }
 }
