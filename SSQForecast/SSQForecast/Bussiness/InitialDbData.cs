@@ -64,7 +64,7 @@ namespace SSQForecast.Bussiness
             {
                 try
                 {
-                    termComboBox.DataSource = numberMappings;
+                    termComboBox.DataSource = numberMappings.ToList();
                     termComboBox.DisplayMember = "TermNum";
                     termComboBox.ValueMember = "TermNum";                   
                 }

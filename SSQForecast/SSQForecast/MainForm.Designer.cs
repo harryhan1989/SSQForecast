@@ -45,12 +45,13 @@
             this.TermMaxCount = new System.Windows.Forms.TextBox();
             this.RedNumPositions = new System.Windows.Forms.CheckedListBox();
             this.BlueNumPosition = new System.Windows.Forms.CheckedListBox();
+            this.MaxTermNum = new System.Windows.Forms.ComboBox();
             this.ProgressingMessage = new System.Windows.Forms.RichTextBox();
             this.termNumDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.previousTermsNumDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.winningRateDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.intervalRateViewModelBindingSource = new System.Windows.Forms.BindingSource(this.components);
-            this.MaxTermNum = new System.Windows.Forms.ComboBox();
+            this.MaxRecursionTermsPerJob = new System.Windows.Forms.TextBox();
             ((System.ComponentModel.ISupportInitialize)(this.IntervalRateView)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.intervalRateViewModelBindingSource)).BeginInit();
             this.SuspendLayout();
@@ -160,7 +161,7 @@
             this.IntervalRate.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.IntervalRate.Location = new System.Drawing.Point(132, 450);
             this.IntervalRate.Name = "IntervalRate";
-            this.IntervalRate.Size = new System.Drawing.Size(100, 20);
+            this.IntervalRate.Size = new System.Drawing.Size(61, 20);
             this.IntervalRate.TabIndex = 9;
             this.IntervalRate.Text = "10";
             this.toolTip1.SetToolTip(this.IntervalRate, "间隔数例：5");
@@ -169,9 +170,9 @@
             // 
             this.TermMinCount.AccessibleDescription = "";
             this.TermMinCount.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.TermMinCount.Location = new System.Drawing.Point(248, 450);
+            this.TermMinCount.Location = new System.Drawing.Point(216, 450);
             this.TermMinCount.Name = "TermMinCount";
-            this.TermMinCount.Size = new System.Drawing.Size(100, 20);
+            this.TermMinCount.Size = new System.Drawing.Size(56, 20);
             this.TermMinCount.TabIndex = 10;
             this.TermMinCount.Tag = "";
             this.TermMinCount.Text = "50";
@@ -180,9 +181,9 @@
             // TermMaxCount
             // 
             this.TermMaxCount.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.TermMaxCount.Location = new System.Drawing.Point(368, 449);
+            this.TermMaxCount.Location = new System.Drawing.Point(295, 450);
             this.TermMaxCount.Name = "TermMaxCount";
-            this.TermMaxCount.Size = new System.Drawing.Size(100, 20);
+            this.TermMaxCount.Size = new System.Drawing.Size(56, 20);
             this.TermMaxCount.TabIndex = 11;
             this.TermMaxCount.Text = "100";
             this.toolTip1.SetToolTip(this.TermMaxCount, "分析期数最大值例：100");
@@ -265,6 +266,16 @@
             this.toolTip1.SetToolTip(this.BlueNumPosition, "篮球位置选择（选择且只能选择一个）");
             this.BlueNumPosition.SelectedIndexChanged += new System.EventHandler(this.BlueNumPosition_SelectedIndexChanged);
             // 
+            // MaxTermNum
+            // 
+            this.MaxTermNum.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.MaxTermNum.FormattingEnabled = true;
+            this.MaxTermNum.Location = new System.Drawing.Point(489, 449);
+            this.MaxTermNum.Name = "MaxTermNum";
+            this.MaxTermNum.Size = new System.Drawing.Size(121, 21);
+            this.MaxTermNum.TabIndex = 18;
+            this.toolTip1.SetToolTip(this.MaxTermNum, "最大期号");
+            // 
             // ProgressingMessage
             // 
             this.ProgressingMessage.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
@@ -304,21 +315,22 @@
             // 
             this.intervalRateViewModelBindingSource.DataSource = typeof(SSQForecast.Models.IntervalRateViewModel);
             // 
-            // MaxTermNum
+            // MaxRecursionTermsPerJob
             // 
-            this.MaxTermNum.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.MaxTermNum.FormattingEnabled = true;
-            this.MaxTermNum.Location = new System.Drawing.Point(489, 449);
-            this.MaxTermNum.Name = "MaxTermNum";
-            this.MaxTermNum.Size = new System.Drawing.Size(121, 21);
-            this.MaxTermNum.TabIndex = 18;
-            this.toolTip1.SetToolTip(this.MaxTermNum, "最大期号");
+            this.MaxRecursionTermsPerJob.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.MaxRecursionTermsPerJob.Location = new System.Drawing.Point(378, 449);
+            this.MaxRecursionTermsPerJob.Name = "MaxRecursionTermsPerJob";
+            this.MaxRecursionTermsPerJob.Size = new System.Drawing.Size(56, 20);
+            this.MaxRecursionTermsPerJob.TabIndex = 19;
+            this.MaxRecursionTermsPerJob.Text = "100";
+            this.toolTip1.SetToolTip(this.MaxRecursionTermsPerJob, "单次Job最大递归期数");
             // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(699, 487);
+            this.Controls.Add(this.MaxRecursionTermsPerJob);
             this.Controls.Add(this.MaxTermNum);
             this.Controls.Add(this.BlueNumPosition);
             this.Controls.Add(this.RedNumPositions);
@@ -370,5 +382,6 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn winningRateDataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn NextTermNumForecast;
         private System.Windows.Forms.ComboBox MaxTermNum;
+        private System.Windows.Forms.TextBox MaxRecursionTermsPerJob;
     }
 }

@@ -93,8 +93,9 @@ namespace SSQForecast.Bussiness
             using (var ssqdbentities = new ssqdbEntities())
             {
                 var isPrizeList = new List<Boolean>();
-                //for (int j1 = 0; j1 < totalTermInfos.Count - termCount; j1++)
-                for (int j1 = 0; j1 < 100; j1++)
+                var maxRecursionTermsPerJob =ConvertHelper.ConvertInt((_mainForm.Controls["MaxRecursionTermsPerJob"] as TextBox).Text);
+                maxRecursionTermsPerJob = maxRecursionTermsPerJob > totalTermInfos.Count - termCount ? totalTermInfos.Count : maxRecursionTermsPerJob;
+                for (int j1 = 0; j1 < maxRecursionTermsPerJob; j1++)
                 {
                     var term = totalTermInfos[j1];
                     var baseNums = new int[7]
